@@ -1,0 +1,35 @@
+data Template = template(list[Statement] statements);
+
+data Statement = funcCall(FuncCall call)
+               | ifElse(IfElse ifElse)
+               | include(Include include);
+
+data Include = include(str location);
+
+data FuncCall = funcCall(Name functionName, Arguments arguments);
+
+data Parameter = parameter(Name name, Option option)
+               | listParameter(Name name, ListContent listContent);
+
+data Arguments = arguments(list[Parameter] parameters);
+
+data ListContent = listContent(list[Option] options);
+
+data Option
+    = optionName(NAME name)
+    | optionBoolean(bool boolean)
+    | optionInteger(INTEGER integer)
+    | optionFloat(FLOAT float)
+    | optionString(str string);
+
+data IfElse = ifElse(Condition condition, list[Statement] ifStatements, list[Statement] elseStatements);
+
+data Condition = condition(Name name, Option option);
+
+data Name = name(str val);
+
+data FLOAT
+    = floatValue(real val);
+
+data INTEGER
+    = integerValue(int val);
