@@ -26,16 +26,6 @@ public parsing::AST::Template parsePipelineToAST(loc location)
   = implodePipeline(LD_parse(location));
 
 ////////////////////////////////////////////////
-// IMPLODE
-////////////////////////////////////////////////
-
-void testit(loc location) {
-changes = parse(#start[Template], location);
-impl = implode(#parsing::AST::Template, changes);
-iprintln(impl);
-}
-
-////////////////////////////////////////////////
 // AST
 ////////////////////////////////////////////////
 

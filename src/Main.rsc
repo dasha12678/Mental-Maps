@@ -1,4 +1,4 @@
-//from Georgia's main 
+
 
 module Main
 
@@ -16,40 +16,54 @@ import ParseTree;
 
 set[LanguageService] LTContributions() = {
     parser(parser(#start[Template], allowAmbiguity=true, hasSideEffects=true)), // register the parser function for the level template language
-    outliner(templateOutliner)
+     outliner(templateOutliner)
   };
 
 list[DocumentSymbol] templateOutliner(start[Template] input) {
-  return [symbol("<input.src>", DocumentSymbolKind::\file(), input.src, children=[
-      *[symbol("<fc.functionName>", \function(), fc.src) | /funcCall fc := input]
-  ])];
+  c = [symbol("<input.src>", DocumentSymbolKind::\file(), input.src, children=
+      [ symbol("<stmt.src>", \method(), stmt.src) | /Statement stmt := input]
+      )];
+      println(c);
+      return c;
 }
 
+//symbol("<functionName.src>", \function(), input.src) 
+
 void wetest(start[Template] t) {
-  visit(t) {
-    case (funcCall) fc: 
-    println(fc );
+   t = \t.top;
+   top-down-break visit(t) {
+    case (Statement) `<NAME _> (<{Parameter ","}* _>)`:
+    println("Statement");
   }
 }
 
-list[DocumentSymbol] myOutliner(start[Template] input) {
-  return [symbol("<input.src>", DocumentSymbolKind::\file(), input.src, children=[
-      *[outlineStatement(stmt) | /Statement stmt := input]
-  ])];
-}
+//funcCall(NAME _,list[Parameter]_) := input
 
-DocumentSymbol outlineStatement(Statement stmt) {
-  switch (stmt) {
-    case funcCall fc:
-      return symbol("<fc.functionName>", \function(), fc.src);
-    case ifElse ie:
-      return symbol("if-else", \method(), ie.src);
-    case include incl:
-      return symbol("include", \module(), incl.src);
-    default:
-      return symbol("unknown", \variable(), stmt.src); // handle unknown statements
-  }	
-}
+// void wetestmore(start[Template] t) {
+//    t = \t.top;
+//     if (/funcCall(NAME _) := t) {
+//     println("Statement");
+//    }
+//   }
+
+// list[DocumentSymbol] myOutliner(start[Template] input) {
+//   return [symbol("<input.src>", DocumentSymbolKind::\file(), input.src, children=[
+//       *[outlineStatement(stmt) | /Statement stmt := input]
+//   ])];
+// }
+
+// DocumentSymbol outlineStatement(Statement stmt) {
+//   switch (stmt) {
+//     case (Statement) `<NAME functionName> "(" {<Parameter parameters> ","}* ")"`:
+//       return symbol("<functionName>", \function(), functionName.src);
+//     case (Statement) ` "if" "(" <Parameter parameter> ")" {<Statement statementsif>}* "else()" {<Statement statementselse>}* "endIf()"`:
+//       return symbol("<parameter>", \method(), parameter.src);
+//     case (Statement) ` "#include" <LOCATION location>`:
+//       return symbol("<location>", \module(), location.src);
+//     default:
+//       return symbol("unknown", \variable(), stmt.src); // handle unknown statements
+//   }  
+// }
 
 public str LDName = "LevelTemplate";  //language name
 public str LDExtension  = "lt" ;           //file extension

@@ -1,0 +1,101 @@
+encounter(name="dest.cave (mine)", type="Destination", civType="Cave", mapIcon="Cave1", touristy=2)
+
+//mainEncounter(encounter="oreSilver", newWorld=true, debug=true)
+
+mainEncounter(chance=0.5f, encounter="RANDOM", newWorld=true)
+mainEncounter(chance=0.1f, encounter="RANDOM")
+questEncounter(chance=0.1f, encounter="RANDOM")
+
+#include Includes/basicEncounters
+
+possibleNodeStates(type=["Veiled","Overgrown"], chance=0.3f)
+possibleNodeStates(type=["Veiled","Overgrown", "Charred", "Sunken", "Unstable"], chance=1f)
+
+localInformation(text="veiled", type="MajorRumor", nodeState="Veiled", autoReveal="EnteredDarkness")
+localInformation(text="overgrown", type="MinorRumor", nodeState="Overgrown", autoReveal="Arrival")
+localInformation(text="charred", type="MinorRumor", nodeState="Charred", autoReveal="ReachedInterior")
+
+//////////////////////////
+//    VARIATIONS	
+/////////////////////////
+setVariant(notVariant="ab", choose="a")
+
+//variants
+//abcedef
+
+//Possible locks
+//Blinking gap and blessing to be able to cast the magic
+//rotating cave (and a special key for that)
+//lava that needs to be cooled (or heated)
+//dig through something
+//flowrock
+
+
+//nodeStory(type="shadeLair", anchor="Lair", nodeState="Veiled", flags="Veiled")
+nodeStory(type="lavaLair", anchor="Lair", nodeState="Charred")
+nodeStory(type="lavaCamp", anchor="Camp", nodeState="Charred")
+nodeStory(type="none|shadeLair", anchor="Lair", nodeState="Veiled")
+nodeStory(type="none|thicketLair", anchor="Lair", nodeState="Overgrown")
+nodeStory(type="none|ruinSpriteLair", anchor="Lair", nodeState="Ruined")
+
+localInformation(text="veiled", type="MajorRumor", nodeState="Veiled", autoReveal="EnteredDarkness")
+
+//////////////////////////
+//    PATH
+/////////////////////////
+
+#include Includes/caveEntrance
+setLocation(tag="cave|ore|lair|camp|minorVault|hidden|undergroundLair")
+
+
+//////////////////////////
+//    MAIN SITE
+/////////////////////////
+
+addLocation(id="mainSite", terrain="cave", passageType="caveEntrancePlaced", direction="north", lightSettings="SemiDark")
+addLocation(structure="[small,medium]|placeIsNorth|addAntechamber|pathLeadsSouthAndUp|entranceSouth|ab:[isolatedEnvironmentNorth,isolatedEnvironmentEast]|buildEnvironment|a:isolatedValveBackRequired")
+addLocation(structure="[addSecondaryEntrance,mustHaveSecondaryEntrance,,]|[addTertiaryEntrance]|[addTertiaryEntrance]")
+addLocation(features="roomIsPlace|adef:entranceGateIsNaturalLock|clearing|spawnOre|roomIsPath|spawnOreHint|b:climbUpSouthEast|climbUpIsRope")
+addLocation(features="roomIsEnvironmentGoal|spawnOreHint|chestNotEmpty|a:climbDownNorthEast|a:[climbDownIsPoorlyHidden,climbDownIsHidden,climbDownIsBlocked]")
+addLocation(features="roomIsEnvironmentGoal|b:climbUpNorthEast|")
+addLocation(features="roomIsEnvironmentBonusElseNone|spawnOreHint|roomIsEnvironmentBonusElseNone|spawnOreHint")
+addLocation(features="[roomIsAntechamber,roomIsPlace]|clearing|spawnLair")
+addLocation(features="roomIsAntechamber|roomIsPath|clearing|spawnCamp|[roomIsPath,roomIsEnvironment,roomIsRandom]|spawnGuard|")
+addLocation(features="roomIsEnvironment|spawnNuisance|roomIsEnvironment|spawnNuisance|roomIsEnvironment|[spawnNuisance,spawnWildLife]")
+addLocation(variantOr="a", features="roomIsIsolatedEntrance|climbDownSouthEast|climbDownIsPoorlyHidden|naturalKey")
+addLocation(variantOr="b", features="roomIsIsolatedEntrance|climbUpSouthAlternative|climbUpIsRope")
+addLocation(themes="cave|hazards|CAVEHAZARD|[CAVEHAZARD]|openGates|narrowPassages")
+addLocation(features="[roomIsGoal,roomIsEnvironmentGoal,roomIsEnvironmentBonus]|spawnHidden")
+addLocation(terrainAB="solidRock")
+addLocation(terrainC="OPEN")
+addLocation(terrainDEF="solidRock")
+
+
+//////////////////////////
+//    SECRET SITE
+/////////////////////////
+
+if(variantOr="a")
+  addLocation(id="secretSite", parent="mainSite", direction="northEast", terrain="cave", lightSettings="SemiDark", passageType="placed")
+  addLocation(structure="tiniest|placeIsRefugeWithExit|entranceSouth|noEnvironment|caveUpSouth")
+  addLocation(structure="caveUpNorthWest")
+  addLocation(themes="cave|openGates|narrowPassages|noOpportunities|noSideTunnels|CAVEHAZARD|[RARECAVEHAZARD]")
+  addLocation(features="roomIsRoom|tunnel|hazard|hazard")
+  addLocation(terrainAB="solidRock")
+  addLocation(terrainC="OPEN")
+  addLocation(terrainDEF="solidRock")
+else()
+  addLocation(id="secretSite", terrain="cave", passageType="caveEntrancePlaced", direction="northEast", lightSettings="SemiDark")
+  addLocation(structure="small|placeIsNorth|addAntechamber|pathLeadsSouthAndDown|entranceSouth")
+  addLocation(features="roomIsPlace|clearing|climbDownNorthWest|climbDownNeedsRope")
+  addLocation(features="roomIsEnvironmentGoal|climbDownNorthAlternative|climbDownNeedsRope")
+  addLocation(themes="cave|hazards|CAVEHAZARD|[CAVEHAZARD]|openGates|narrowPassages")
+  addLocation(terrainAB="solidRock")
+  addLocation(terrainC="OPEN")
+  addLocation(terrainDEF="solidRock")
+endIf()
+
+addConnection(variantOr="abcd", start="secretSite", end="mainSite", direction="NorthWest", passageType="placed")
+addConnection(variantOr="b", start="secretSite", end="mainSite", direction="NorthAlternative", passageType="placed")
+
+//GENERATION DATA: Appearances in 10 generated worlds: 49

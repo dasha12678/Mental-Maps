@@ -22,7 +22,23 @@ import parsing::AST;
 
 alias AbstractPipeline = parsing::AST::Template;
 
-public void parseProject(Tree tree, loc projectFile){
-	//println("Parse is called on: <projectFile>");
-    AbstractPipeline project = implodePipeline(tree);
+////////////////////////////////////////////////
+// PARSE
+////////////////////////////////////////////////
+
+public &T<:Tree parseProject(loc location) {
+    //println("Parse is called on: <projectFile>");
+    parseTree = parse(#start[Template], location); 
+    return parseTree;
+}
+
+////////////////////////////////////////////////
+// PARSE AND IMPLODE
+////////////////////////////////////////////////
+
+public void parseAndImplodeProject(loc location) {
+    //println("Parse is called on: <projectFile>");
+    parseTree = parse(#start[Template], location); 
+    impl = implode(#AbstractPipeline, parseTree);
+    iprintln(impl);
 }
