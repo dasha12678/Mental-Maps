@@ -2,30 +2,28 @@
 
 module Main
 
+
 // import util::IDE;
 // import vis::Figure;
 import util::LanguageServer;
-import util::IDEServices;
 import util::Reflective;
 import IO;
 
-import parsing::Parser;
 import parsing::TemplateSyntax;
-import parsing::AST;
 import ParseTree;
 
 set[LanguageService] LTContributions() = {
-    parser(parser(#start[Template], allowAmbiguity=true, hasSideEffects=true)), // register the parser function for the level template language
-     outliner(templateOutliner)
-  };
+    parser(Tree(str txt, loc src) {
+      return parse(#start[Template], txt, src, allowAmbiguity=true);
+    }),
+      
+     outliner(list[DocumentSymbol] (start[Template] input) {
+        c = [symbol("<input.src.path>", DocumentSymbolKind::\file(), input.src, children=
+            [ symbol("<stmt>", \method(), stmt.src) | /Statement stmt := input.top ])];
+        return c;
+     })
+  }; 
 
-list[DocumentSymbol] templateOutliner(start[Template] input) {
-  c = [symbol("<input.src>", DocumentSymbolKind::\file(), input.src, children=
-      [ symbol("<stmt.src>", \method(), stmt.src) | /Statement stmt := input]
-      )];
-      println(c);
-      return c;
-}
 
 //symbol("<functionName.src>", \function(), input.src) 
 
@@ -65,17 +63,11 @@ void wetest(start[Template] t) {
 //   }  
 // }
 
-public str LDName = "LevelTemplate";  //language name
-public str LDExtension  = "lt" ;           //file extension
-public str LDMainModule  = "Main" ;         //main module
-public str LDMainFunction = "LTContributions";     //main function
-PathConfig LDpcfg = pathConfig(srcs=[|project://my-dsl/src|]);
-
 public void main(){
 
 	registerLanguage(
 		language(
-			LDpcfg, LDName, LDExtension, LDMainModule, LDMainFunction)
+			pathConfig(srcs=[|std:///|, |project://mental-maps/src|]), "LevelTemplate", "lt", "Main", "LTContributions")
 			);
 	
 	println("IDE loaded.");

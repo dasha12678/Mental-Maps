@@ -38,7 +38,7 @@ lexical BOOLEAN
 	= @category="Boolean" "true" | "false";
 
 //reserved keywords 
-keyword Keywords = 'include' | 'if' | 'else' | 'endIf' | "true" | "false";
+keyword Keywords = "include" | "if" | "else" | "endIf" | "true" | "false";
 
 //integer
 lexical INTEGER
@@ -67,8 +67,8 @@ start syntax Template
 
 syntax Statement 
 	=   funcCall: NAME functionName "(" {Parameter ","}* parameters")"
-	|	ifElse: "if" "(" Parameter parameter ")" Statement* statementsif "else()" Statement* statementselse "endIf()" 
-	|	include: "#include" LOCATION location
+	|	ifElse: "if" "(" Parameter parameter ")" Statement* statementsif "else" "()" Statement* statementselse "endIf" "()" 
+	|	include: "#" "include" LOCATION location
 	;
 
 // syntax Include
