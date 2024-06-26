@@ -6,8 +6,6 @@ mainEncounter(chance=0.5f, encounter="RANDOM", newWorld=true)
 mainEncounter(chance=0.1f, encounter="RANDOM")
 questEncounter(chance=0.1f, encounter="RANDOM")
 
-
-
 #include Includes/basicEncounters
 
 possibleNodeStates(type=["Veiled","Overgrown"], chance=0.3f)

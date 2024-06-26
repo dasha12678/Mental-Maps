@@ -1,25 +1,45 @@
 encounter(name="dest.cave (mine)", type="Destination", civType="Cave", mapIcon="Cave1", touristy=2)
+//instantiation of the node 
+//touristy = for debugging, basically a flag. Something that Joris sets manually. 
+//Later he can filter for touristy and choose to use a node
+//TO DO: rename to node
+//A node is a (unique) clickable point on the map that a player can travel to. 
+//A node is populated by (multiple) encounters.
 
 //mainEncounter(encounter="oreSilver", newWorld=true, debug=true)
 
 mainEncounter(chance=0.5f, encounter="RANDOM", newWorld=true)
 mainEncounter(chance=0.1f, encounter="RANDOM")
 questEncounter(chance=0.1f, encounter="RANDOM")
-
+//Define a mainEncounter for the node.
+//mainEncounter eg. bandits, wolves.
+//questEncounters - reason to visit this node eg. hidden treasure.
+//newWorld and chance are conditions (is chance a condition?).
 
 #include Includes/basicEncounters
+//A common import. 
+//Can occur multiple times. 
+//Here importing another node definition to be reused. 
 
 possibleNodeStates(type=["Veiled","Overgrown"], chance=0.3f)
 possibleNodeStates(type=["Veiled","Overgrown", "Charred", "Sunken", "Unstable"], chance=1f)
+//Ordered, hierarchy!!
+//"There is a 0.3f chance of a node state being either veiled or overgrown.
+// If that is not the case, move on to second possibleNodeStates statement."
 
 localInformation(text="veiled", type="MajorRumor", nodeState="Veiled", autoReveal="EnteredDarkness")
 localInformation(text="overgrown", type="MinorRumor", nodeState="Overgrown", autoReveal="Arrival")
 localInformation(text="charred", type="MinorRumor", nodeState="Charred", autoReveal="ReachedInterior")
+//Setting up rumours in a node.
 
 //////////////////////////
 //    VARIATIONS	
 /////////////////////////
 setVariant(notVariant="ab", choose="a")
+//setVariant is an actual function
+//notVariant - condition.
+//choose - command.
+//in debug mode - usually it's choose a or b.
 
 //variants
 //abcedef
@@ -38,8 +58,13 @@ nodeStory(type="lavaCamp", anchor="Camp", nodeState="Charred")
 nodeStory(type="none|shadeLair", anchor="Lair", nodeState="Veiled")
 nodeStory(type="none|thicketLair", anchor="Lair", nodeState="Overgrown")
 nodeStory(type="none|ruinSpriteLair", anchor="Lair", nodeState="Ruined")
+//Extra complications.
+//Condition on the righthand side - nodeState and anchor
+//type is set based on the condition. 
 
 localInformation(text="veiled", type="MajorRumor", nodeState="Veiled", autoReveal="EnteredDarkness")
+//Adds a rumour about this location. 
+//Nodestate is a condition, other parameters are set accordingly. 
 
 //////////////////////////
 //    PATH
@@ -66,11 +91,24 @@ addLocation(features="roomIsEnvironment|spawnNuisance|roomIsEnvironment|spawnNui
 addLocation(variantOr="a", features="roomIsIsolatedEntrance|climbDownSouthEast|climbDownIsPoorlyHidden|naturalKey")
 addLocation(variantOr="b", features="roomIsIsolatedEntrance|climbUpSouthAlternative|climbUpIsRope")
 addLocation(themes="cave|hazards|CAVEHAZARD|[CAVEHAZARD]|openGates|narrowPassages")
+//Additional information about the node.
+//structures = how level should be laid out. 
+//features - how it should be populated.
+//themes - how it should be colored.
+//features - references to rules.
+//CAVEHAZARD - NOT DETERMINED BY TEMPLATE
+//EXAMPLES: MUDDY, SHALLOW WATER. DEPENDS ON WHERE THE LEVEL IS generated (EX. FORREST)
+//NO STRUCTURAL IMPACT
+// | is CONCAT 
+//[] is making a choice 
 addLocation(features="[roomIsGoal,roomIsEnvironmentGoal,roomIsEnvironmentBonus]|spawnHidden")
 addLocation(terrainAB="solidRock")
+//dealing with barriers 
+//A and B are terrains (parts of a level)
 addLocation(terrainC="OPEN")
+//C is traversable terrain 
 addLocation(terrainDEF="solidRock")
-
+//DEF is stuff to be filled in the middle eg. basin you can fly over
 
 //////////////////////////
 //    SECRET SITE
@@ -98,5 +136,19 @@ endIf()
 
 addConnection(variantOr="abcd", start="secretSite", end="mainSite", direction="NorthWest", passageType="placed")
 addConnection(variantOr="b", start="secretSite", end="mainSite", direction="NorthAlternative", passageType="placed")
+//adding connections
 
 //GENERATION DATA: Appearances in 10 generated worlds: 49
+
+
+//Any content can be described as a symbol 
+//this is what ludoscope outputs
+
+//template stored as a list of symbols
+//which he then does string matching on 
+
+//enumerators
+
+
+//look up "function" for parsing 
+//LOOK AT ENCOUNTER.CS

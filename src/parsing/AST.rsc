@@ -8,9 +8,9 @@
 // Part of Mental Maps DSL
 // @brief   The AST used for parsing Ludoscope Mini files ().lm. 
 //			This file contains the data structure needed for imploding
-//			a parsed .lm tree.
-// @author  Georgia Samaritaki - samaritakigeorgia@gmail.com
-// @date    10-10-2021
+//			a parsed .lm tree
+// @author  Daria Protsenko - daria.protsenkoo@gmail.com
+// @date    10-10-202
 //
 //////////////////////////////////////////////////////////////////////////////
 module parsing::AST
