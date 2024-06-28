@@ -36,9 +36,13 @@ data Template
     = template(list[Statement] statements);
 
 data Statement
-    = funcCall(NAME functionName, list[Parameter] parameters)
+    = funcCall(str functionName, list[Parameter] parameters)
     | ifElse(Parameter parameter, list[Statement] statementsIf, list[Statement] statementsElse)
     | include(LOCATION location);
+
+// data IfElse
+//     = ifElse(Parameter parameter, list[Statement] statementsIf, list[Statement] statementsElse)
+//     | ifElse(Parameter parameter, list[Statement] statementsIf);
 
 // data Include
 //     = include(LOCATION location);
@@ -47,8 +51,8 @@ data Statement
 //     = funcCall(NAME functionName, list[Parameter] parameters);
 
 data Parameter
-    = parameter(NAME name, Option option)
-    | parameterWithListContent(NAME name, list[Option] options);
+    = parameter(str name, Option option)
+    | parameterWithListContent(str name, list[Option] options);
 
 // data Arguments
 //     = arguments(list[Parameter] parameters);
@@ -57,7 +61,7 @@ data Parameter
 //     = listContent(list[Option] options);
 
 data Option
-    = optionName(NAME name)
+    = optionName(str name)
     | optionBoolean(bool boolean)
     | optionInteger(int integer)
     | optionFloat(real float)
@@ -72,8 +76,8 @@ data Option
 // data INTEGER
 //     = integerValue(int val);
 
- data NAME
-     = name(str val);
+//  data NAME
+//      = name(str val);
 
  data LOCATION
      = location(str val);

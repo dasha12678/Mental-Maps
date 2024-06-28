@@ -1,0 +1,54 @@
+encounter(name="dest.farm", templateType="location", templateType="destination", mapIcon="Farm", civType="Farm", controlType="MinorSettlement")
+
+//roomStyleCorridor(floor="calmTiles", walls="loam", columns="loam", cornerColumns="loam.corner", decoratedColumns="loam.corner", gates="loam", decorations="default")
+//roomStyleDEfault(floor="calmTiles", walls="loam", columns="loam", cornerColumns="loam.corner", decoratedColumns="loam.decorated", gates="loam", decorations="default")
+//roomStyleA(floor="calmTiles", walls="loam", columns="loam", cornerColumns="loam.corner", decoratedColumns="loam.decorated", gates="loam", decorations="default")
+roomStyleCorridor(floor="BUILDINGMATERIAL", walls="BUILDINGMATERIAL", columns="BUILDINGMATERIAL", cornerColumns="BUILDINGMATERIAL", decoratedColumns="BUILDINGMATERIAL", gates="BUILDINGMATERIAL", decorations="default")
+roomStyleDefault(floor="BUILDINGMATERIAL", walls="BUILDINGMATERIAL", columns="BUILDINGMATERIAL", cornerColumns="BUILDINGMATERIAL", decoratedColumns="BUILDINGMATERIAL", gates="BUILDINGMATERIAL", decorations="default")
+roomStyleA(floor="BUILDINGMATERIAL", walls="BUILDINGMATERIAL", columns="BUILDINGMATERIAL", cornerColumns="BUILDINGMATERIAL", decoratedColumns="BUILDINGMATERIAL", gates="BUILDINGMATERIAL", decorations="default")
+roomStyleB(floor="none", walls="fence", columns="fence", cornerColumns="fence", decoratedColumns="fence", gates="fence", decorations="default")
+
+mainEncounter(chance=0.6f, encounter="pettyFarmer")
+mainEncounter(chance=0.4f, encounter="abandoned|restlessBones|squatters")
+mainEncounter(encounter="RANDOM", newWorld=true)
+mainEncounter(chance=0.5f, encounter="RANDOM")
+questEncounter(chance=0.1f, encounter="RANDOM")
+travelFortunes(count=0)
+
+
+//setLocation(id="mainSite", direction="north", terrain="same", structure="tiny|[startOpenSmall,startPathLow,startMeadowSmall]|entranceSouth|sideRoom|[sideRoom]|")
+
+
+//setLocation(id="mainSite", direction="north", terrain="same", structure="tiny|startPathToProminent|entranceSouth|openSideRoomA|openSideRoomB|")
+//setLocation(features="roomIsProminent|farmhouse|roomStyleRoomA|roomIsRoomB|roomStyleRoomB|spawnCattle|floorTypeNone|roomIsRoomAElseNone|possibleField|[idolInspiration,idolEnergized,idolOrientation,,,,]")
+
+setVariant(choose="a--") //location of the pig pen
+setVariant(choose="-bc") //has a stream
+
+setLocation(id="mainSite", structure="[smallTall,smallNarrow]|c:placeIsNorth:[placeIsCentral,placeIsNorth]|placeHasVaultInAnyDirection|b:addBridgeEntranceChasmStream:addAntechamber|c:chasmStreamNorth|bc:[pathLeadsSouthAndUp,pathLeadsSouth]:[pathLeadsSouth,pathLeadsSouthAndDown]|entranceSouth|buildEnvironment|mustHaveEnvironment")
+setLocation(features="roomIsPlace|introductionCameraFar|farmhouse|spawnCamp|roomStyleSmallA|smallSideRooms|")
+setLocation(features="a:roomIsEnvironmentGoal:roomIsVault|roomStyleRoomB|spawnCattle|floorTypeNone")
+setLocation(variant="R", features="roomIsEnvironmentGoal|caveEntranceDownNorth|roomIsVault|rootSinger")
+setLocation(features="a:roomIsVault:roomIsEnvironmentGoal|possibleField|a:[idolInspiration,idolEnergized,idolOrientation,]")
+setLocation(features="roomIsEnvironmentBonusElseNone|possibleField")
+setLocation(features="roomIsEnvironmentBonusElseNone|possibleField")
+setLocation(themes="TERRAIN|openGates|walledHouse|BUILDINGSTYLE")
+setLocation(variantOr="bc", terrainAB="NOTLOW|VEGETATION")
+setLocation(notVariant="bc", terrainAB="CLOSED|VEGETATION")
+setLocation(terrainC="OPEN")
+setLocation(terrainDEF="CLOSED|VEGETATION")
+setLocation(path="PATH")
+setLocation(variantOr="bc", chasm="VEGETATION", chasmThreshold=-1)
+setLocation(buildingType="Farm")
+setLocation(tag="house|farm|folk|camp")
+
+
+if(variant="R")
+#include Includes/rootSingerCave
+endIf()
+
+
+//You might encounter travelling traders near a roadhouse
+//addRegionalEncounter(location="this", fortune="Folk", story="travellingTrader", chance=0.25f, nearOrigin=true)
+//TODO add a traveling trader being attacked?
+//addRegionalEncounter(location="this", fortune="Enemy", story="travellingTrader", chance=1f, nearOrigin=true)

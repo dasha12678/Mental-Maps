@@ -42,7 +42,7 @@ keyword Keywords = "include" | "if" | "else" | "endIf" | "true" | "false";
 
 //integer
 lexical INTEGER
-  = @category="Integer" [0-9]* !>> [0-9];
+  = @category="Integer" [\-]? [0-9]+ !>> [0-9];
   
 //float
 lexical FLOAT
@@ -67,9 +67,14 @@ start syntax Template
 
 syntax Statement 
 	=   funcCall: NAME functionName "(" {Parameter ","}* parameters")"
-	|	ifElse: "if" "(" Parameter parameter ")" Statement* statementsif "else" "()" Statement* statementselse "endIf" "()" 
+	|	ifElse: "if" "(" Parameter parameter ")" Statement* statementsif ("else" "()" Statement* statementselse)? "endIf" "()" 
 	|	include: "#" "include" LOCATION location
 	;
+
+// syntax IfElse
+//   = IfElse: "if" "(" Parameter parameter ")" Statement* statementsif "else" "()" Statement* statementselse "endIf" "()" 
+//   | "if" "(" Parameter parameter ")" Statement* statementsif "endIf" "()"
+//   ; 
 
 // syntax Include
 // 	= include: "#include" LOCATION location
