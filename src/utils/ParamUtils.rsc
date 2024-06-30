@@ -28,6 +28,36 @@ map[str, list[str]] extractParamInfo(Parameter param) {
     return result; 
 }
 
+public map[str, int] getParamCounts(list[Parameter] parameters) {
+    map[str, int] paramCounts = ();
+    for (Parameter param <- parameters) {
+        str paramName = extractParamName(param);
+        if (paramName in paramCounts) {
+            paramCounts[paramName] = paramCounts[paramName] + 1;
+        } else {
+            paramCounts[paramName] = 1;
+        }
+    }
+    return paramCounts;
+}
+
+// Extract parameter name
+public str extractParamName(Parameter param) {
+    switch (param) {
+        case parameter(str name, _): return name;
+        case parameterWithListContent(str name, _): return name;
+    }
+    return "";
+}
+
+set[str] getParameterSet(list[Parameter] parameters) {
+    set[str] paramSet = {};
+    for (Parameter param <- parameters) {
+        paramSet += extractParamName(param);
+    }
+    return paramSet;
+}
+
 public str optionToString(Option option) {
     switch (option) {
         case optionName(str name): return name;

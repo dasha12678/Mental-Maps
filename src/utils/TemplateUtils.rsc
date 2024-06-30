@@ -3,6 +3,7 @@ module utils::TemplateUtils
 import IO;
 import Location;
 import String;
+import List;
 
 //Collect locations of all template files in Unexplored2 project
 public list[loc] listFiles(loc dir) {
@@ -13,6 +14,7 @@ public list[loc] listFiles(loc dir) {
             files += [entry];
         }
     }
+    println(size(files));
     return files;
 }
 

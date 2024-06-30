@@ -1,0 +1,167 @@
+THIS FILE DISPLAYS MANDATORY PARAMETERS FOR EACH VARIABLE CALL,
+WHICH ARE PARAMETERS USED IN EVERY OCCURENCE OF THAT VARIABLE CALL ACROSS ALL TEMPLATES
+
+FUNCTIONS WITH MANDATORY PARAMETERS:
+
+Function: setVariant
+  Mandatory Parameter: choose
+
+Function: localCreatureFamily
+  Mandatory Parameter: local
+  Mandatory Parameter: location
+
+Function: affordance
+  Mandatory Parameter: location
+  Mandatory Parameter: type
+
+Function: questEncounter
+  Mandatory Parameter: encounter
+  Mandatory Parameter: chance
+
+Function: leadInEncounter
+  Mandatory Parameter: priority
+  Mandatory Parameter: minDistance
+  Mandatory Parameter: closerToHaven
+  Mandatory Parameter: encounter
+  Mandatory Parameter: maxDistance
+  Mandatory Parameter: sameRegion
+  Mandatory Parameter: tag
+
+Function: worldMachine
+  Mandatory Parameter: type
+
+Function: addLocation
+  Mandatory Parameter: themes
+  Mandatory Parameter: terrainC
+  Mandatory Parameter: structure
+  Mandatory Parameter: id
+  Mandatory Parameter: features
+  Mandatory Parameter: direction
+
+Function: setLocation
+
+Function: mainEncounter
+  Mandatory Parameter: newWorld
+  Mandatory Parameter: encounter
+  Mandatory Parameter: chance
+
+Function: complication
+  Mandatory Parameter: once
+  Mandatory Parameter: story
+  Mandatory Parameter: type
+  Mandatory Parameter: complication
+
+Function: addConnection
+  Mandatory Parameter: start
+  Mandatory Parameter: end
+  Mandatory Parameter: direction
+  Mandatory Parameter: variantOr
+  Mandatory Parameter: passageType
+
+Function: linkedSite
+  Mandatory Parameter: minDistance
+  Mandatory Parameter: setDestination
+  Mandatory Parameter: maxDistance
+  Mandatory Parameter: sameRegion
+  Mandatory Parameter: distanceFromEdge
+
+Function: roomStyleCorridor
+  Mandatory Parameter: decorations
+  Mandatory Parameter: decoratedColumns
+  Mandatory Parameter: walls
+  Mandatory Parameter: floor
+  Mandatory Parameter: columns
+  Mandatory Parameter: gates
+  Mandatory Parameter: cornerColumns
+
+Function: exitMode
+  Mandatory Parameter: type
+
+Function: leadInEncounters
+  Mandatory Parameter: count
+
+Function: spiritWorld
+  Mandatory Parameter: type
+
+Function: addMinorItem
+  Mandatory Parameter: priority
+  Mandatory Parameter: item
+  Mandatory Parameter: location
+
+Function: travelFortune
+  Mandatory Parameter: type
+
+Function: localStory
+  Mandatory Parameter: type
+
+Function: questItemLocation
+  Mandatory Parameter: container
+  Mandatory Parameter: location
+
+Function: roomStyleA
+  Mandatory Parameter: decorations
+  Mandatory Parameter: walls
+  Mandatory Parameter: floor
+  Mandatory Parameter: columns
+  Mandatory Parameter: gates
+  Mandatory Parameter: cornerColumns
+
+Function: addInformation
+  Mandatory Parameter: status
+  Mandatory Parameter: location
+  Mandatory Parameter: type
+  Mandatory Parameter: id
+
+Function: roomStyleDefault
+  Mandatory Parameter: decorations
+  Mandatory Parameter: walls
+  Mandatory Parameter: floor
+  Mandatory Parameter: columns
+  Mandatory Parameter: gates
+  Mandatory Parameter: cornerColumns
+
+Function: roomStyleB
+  Mandatory Parameter: decorations
+  Mandatory Parameter: decoratedColumns
+  Mandatory Parameter: walls
+  Mandatory Parameter: floor
+  Mandatory Parameter: columns
+  Mandatory Parameter: gates
+  Mandatory Parameter: cornerColumns
+
+Function: travelFortunes
+  Mandatory Parameter: count
+
+Function: triggeredAction
+  Mandatory Parameter: action
+  Mandatory Parameter: key
+
+Function: setName
+  Mandatory Parameter: variant
+  Mandatory Parameter: name
+  Mandatory Parameter: mapIcon
+
+Function: backUpStory
+  Mandatory Parameter: location
+  Mandatory Parameter: type
+
+Function: backupStory
+  Mandatory Parameter: location
+  Mandatory Parameter: type
+
+Function: encounter
+  Mandatory Parameter: name
+  Mandatory Parameter: templateType
+
+Function: elseLinkedSite
+  Mandatory Parameter: minDistance
+  Mandatory Parameter: setDestination
+  Mandatory Parameter: maxDistance
+  Mandatory Parameter: sameRegion
+  Mandatory Parameter: distanceFromEdge
+
+Function: inscription1
+  Mandatory Parameter: variant
+  Mandatory Parameter: reveals
+  Mandatory Parameter: full
+

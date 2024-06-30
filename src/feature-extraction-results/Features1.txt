@@ -1,0 +1,36 @@
+THIS FILE DISPLAYS VARIABLE CALLS USED AND THEIR COUNTER
+(HOW MANY TIMES THEY HAVE BEEN USED ACROSS ALL TEMPLATES)
+
+Function Usage Counts:
+Function: setLocation | Count: 876
+Function: addLocation | Count: 308
+Function: travelFortune | Count: 284
+Function: complication | Count: 267
+Function: encounter | Count: 252
+Function: mainEncounter | Count: 122
+Function: addInformation | Count: 105
+Function: travelFortunes | Count: 62
+Function: questEncounter | Count: 35
+Function: setVariant | Count: 29
+Function: roomStyleDefault | Count: 13
+Function: roomStyleA | Count: 9
+Function: localCreatureFamily | Count: 8
+Function: roomStyleCorridor | Count: 7
+Function: localStory | Count: 6
+Function: addMinorItem | Count: 5
+Function: worldMachine | Count: 4
+Function: affordance | Count: 4
+Function: inscription1 | Count: 3
+Function: triggeredAction | Count: 3
+Function: leadInEncounter | Count: 2
+Function: elseLinkedSite | Count: 2
+Function: leadInEncounters | Count: 2
+Function: questItemLocation | Count: 1
+Function: backUpStory | Count: 1
+Function: backupStory | Count: 1
+Function: spiritWorld | Count: 1
+Function: setName | Count: 1
+Function: linkedSite | Count: 1
+Function: addConnection | Count: 1
+Function: exitMode | Count: 1
+Function: roomStyleB | Count: 1

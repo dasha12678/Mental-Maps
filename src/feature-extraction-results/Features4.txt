@@ -1,0 +1,234 @@
+THIS FILE DISPLAYS PARAMETERS USED IN EACH VARIABLE CALL AND
+THEIR COUNTER (HOW MANY TIMES THEY HAVE BEEN USED IN RESPECTIVE VARIABLE CALL)
+
+Function Parameters Usage Counts:
+Function: setVariant
+  Parameter: choose | Count: 29
+  Parameter: region | Count: 4
+  Parameter: notVariant | Count: 4
+  Parameter: specialRegion | Count: 3
+Function: localCreatureFamily
+  Parameter: location | Count: 8
+  Parameter: local | Count: 8
+Function: affordance
+  Parameter: type | Count: 4
+  Parameter: location | Count: 2
+Function: questEncounter
+  Parameter: encounter | Count: 35
+  Parameter: chance | Count: 35
+  Parameter: newWorld | Count: 1
+Function: leadInEncounter
+  Parameter: tag | Count: 2
+  Parameter: minDistance | Count: 2
+  Parameter: priority | Count: 2
+  Parameter: maxDistance | Count: 2
+  Parameter: sameRegion | Count: 2
+  Parameter: closerToHaven | Count: 2
+  Parameter: encounter | Count: 2
+Function: worldMachine
+  Parameter: type | Count: 4
+Function: addLocation
+  Parameter: features | Count: 68
+  Parameter: direction | Count: 36
+  Parameter: id | Count: 36
+  Parameter: themes | Count: 33
+  Parameter: structure | Count: 32
+  Parameter: terrainC | Count: 30
+  Parameter: passageType | Count: 30
+  Parameter: terrainDEF | Count: 29
+  Parameter: terrain | Count: 25
+  Parameter: terrainAB | Count: 25
+  Parameter: path | Count: 24
+  Parameter: parent | Count: 23
+  Parameter: lightSettings | Count: 17
+  Parameter: variant | Count: 15
+  Parameter: additionalThemes | Count: 8
+  Parameter: buildingType | Count: 7
+  Parameter: variantOr | Count: 7
+  Parameter: chasmThreshold | Count: 6
+  Parameter: terrainB | Count: 6
+  Parameter: terrainA | Count: 6
+  Parameter: chasm | Count: 4
+  Parameter: container1 | Count: 3
+  Parameter: variantNot | Count: 2
+  Parameter: tag | Count: 1
+  Parameter: container2 | Count: 1
+  Parameter: passageTyoe | Count: 1
+  Parameter: terrainG | Count: 1
+  Parameter: notVariant | Count: 1
+  Parameter: terrainF | Count: 1
+  Parameter: terrainD | Count: 1
+  Parameter: terrainE | Count: 1
+  Parameter: tags | Count: 1
+Function: setLocation
+  Parameter: features | Count: 189
+  Parameter: path | Count: 90
+  Parameter: tag | Count: 84
+  Parameter: structure | Count: 81
+  Parameter: terrainC | Count: 80
+  Parameter: themes | Count: 80
+  Parameter: id | Count: 80
+  Parameter: terrainDEF | Count: 75
+  Parameter: terrainB | Count: 44
+  Parameter: terrainA | Count: 44
+  Parameter: terrainAB | Count: 38
+  Parameter: chasmThreshold | Count: 36
+  Parameter: variant | Count: 30
+  Parameter: chasm | Count: 30
+  Parameter: direction | Count: 16
+  Parameter: passageType | Count: 16
+  Parameter: parent | Count: 10
+  Parameter: additionalThemes | Count: 9
+  Parameter: variantOr | Count: 8
+  Parameter: notVariant | Count: 6
+  Parameter: terrainE | Count: 5
+  Parameter: terrainD | Count: 5
+  Parameter: terrainG | Count: 5
+  Parameter: terrainF | Count: 5
+  Parameter: buildingType | Count: 4
+  Parameter: bushThreshold | Count: 2
+  Parameter: treeThreshold | Count: 2
+  Parameter: specialInventory | Count: 1
+  Parameter: conditions | Count: 1
+  Parameter: name | Count: 1
+  Parameter: wall | Count: 1
+  Parameter: baseDecoration | Count: 1
+  Parameter: slopeBottom | Count: 1
+Function: mainEncounter
+  Parameter: encounter | Count: 122
+  Parameter: chance | Count: 113
+  Parameter: newWorld | Count: 74
+  Parameter: variant | Count: 2
+  Parameter: debug | Count: 1
+  Parameter: chancw | Count: 1
+Function: complication
+  Parameter: story | Count: 267
+  Parameter: type | Count: 267
+  Parameter: once | Count: 249
+  Parameter: complication | Count: 113
+Function: addConnection
+  Parameter: passageType | Count: 1
+  Parameter: variantOr | Count: 1
+  Parameter: start | Count: 1
+  Parameter: direction | Count: 1
+  Parameter: end | Count: 1
+Function: linkedSite
+  Parameter: distanceFromEdge | Count: 1
+  Parameter: minDistance | Count: 1
+  Parameter: setDestination | Count: 1
+  Parameter: maxDistance | Count: 1
+  Parameter: sameRegion | Count: 1
+Function: roomStyleCorridor
+  Parameter: cornerColumns | Count: 7
+  Parameter: walls | Count: 7
+  Parameter: floor | Count: 7
+  Parameter: columns | Count: 7
+  Parameter: decoratedColumns | Count: 7
+  Parameter: decorations | Count: 7
+  Parameter: gates | Count: 7
+Function: exitMode
+  Parameter: type | Count: 1
+Function: leadInEncounters
+  Parameter: count | Count: 2
+Function: spiritWorld
+  Parameter: type | Count: 1
+Function: addMinorItem
+  Parameter: priority | Count: 5
+  Parameter: item | Count: 5
+  Parameter: location | Count: 5
+Function: travelFortune
+  Parameter: type | Count: 284
+  Parameter: flippedType | Count: 119
+  Parameter: minPresence | Count: 112
+  Parameter: hidden | Count: 36
+  Parameter: always | Count: 26
+  Parameter: minDifficulty | Count: 10
+  Parameter: variant | Count: 6
+  Parameter: trait | Count: 6
+  Parameter: notVariant | Count: 1
+Function: localStory
+  Parameter: type | Count: 6
+  Parameter: location | Count: 4
+  Parameter: complication | Count: 2
+Function: questItemLocation
+  Parameter: container | Count: 1
+  Parameter: location | Count: 1
+Function: roomStyleA
+  Parameter: cornerColumns | Count: 9
+  Parameter: gates | Count: 9
+  Parameter: decorations | Count: 9
+  Parameter: walls | Count: 9
+  Parameter: floor | Count: 9
+  Parameter: columns | Count: 9
+  Parameter: decoratedColumns | Count: 6
+  Parameter: wealth | Count: 3
+  Parameter: gateDecorations | Count: 1
+Function: addInformation
+  Parameter: type | Count: 105
+  Parameter: id | Count: 105
+  Parameter: status | Count: 105
+  Parameter: location | Count: 85
+  Parameter: entry | Count: 63
+  Parameter: variant | Count: 38
+  Parameter: tags | Count: 10
+  Parameter: region | Count: 9
+  Parameter: distanceEffect | Count: 9
+  Parameter: annotation | Count: 9
+  Parameter: notVariant | Count: 8
+  Parameter: sortOrder | Count: 1
+  Parameter: parentQuest | Count: 1
+Function: roomStyleDefault
+  Parameter: walls | Count: 13
+  Parameter: gates | Count: 13
+  Parameter: cornerColumns | Count: 13
+  Parameter: decorations | Count: 13
+  Parameter: columns | Count: 13
+  Parameter: floor | Count: 13
+  Parameter: decoratedColumns | Count: 10
+  Parameter: gateDecorations | Count: 3
+  Parameter: location | Count: 2
+Function: roomStyleB
+  Parameter: decorations | Count: 1
+  Parameter: gates | Count: 1
+  Parameter: columns | Count: 1
+  Parameter: decoratedColumns | Count: 1
+  Parameter: floor | Count: 1
+  Parameter: cornerColumns | Count: 1
+  Parameter: walls | Count: 1
+Function: travelFortunes
+  Parameter: count | Count: 62
+Function: triggeredAction
+  Parameter: key | Count: 3
+  Parameter: action | Count: 3
+Function: setName
+  Parameter: mapIcon | Count: 1
+  Parameter: name | Count: 1
+  Parameter: variant | Count: 1
+Function: backUpStory
+  Parameter: type | Count: 1
+  Parameter: location | Count: 1
+Function: backupStory
+  Parameter: type | Count: 1
+  Parameter: location | Count: 1
+Function: encounter
+  Parameter: templateType | Count: 267
+  Parameter: name | Count: 252
+  Parameter: type | Count: 210
+  Parameter: controlType | Count: 69
+  Parameter: mapAsset | Count: 66
+  Parameter: mapIcon | Count: 60
+  Parameter: civType | Count: 54
+  Parameter: adventureSite | Count: 12
+  Parameter: realMapIcon | Count: 12
+  Parameter: realName | Count: 9
+  Parameter: mapStatus | Count: 6
+Function: elseLinkedSite
+  Parameter: maxDistance | Count: 2
+  Parameter: sameRegion | Count: 2
+  Parameter: distanceFromEdge | Count: 2
+  Parameter: minDistance | Count: 2
+  Parameter: setDestination | Count: 2
+Function: inscription1
+  Parameter: full | Count: 3
+  Parameter: reveals | Count: 3
+  Parameter: variant | Count: 3

@@ -1,3 +1,6 @@
+THIS FILE DISPLAYS VARIABLE CALLS USED ACROSS ALL TEMPLATES
+WITH THEIR RESPECTIVE PARAMETERS AND VALUES 
+
 Function Parameters:
 Function: setVariant
   Parameter: specialRegion, Values: ["\"detonaFields\"","\"BrokenPlain\"","\"DandelionHighlands\""]
