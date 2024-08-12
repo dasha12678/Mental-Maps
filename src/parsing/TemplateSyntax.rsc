@@ -70,35 +70,10 @@ syntax Statement
 	|	ifElse: "if" "(" Parameter parameter ")" Statement* statementsif ("else" "()" Statement* statementselse)? "endIf" "()" 
 	|	include: "#" "include" LOCATION location
 	;
-
-// syntax IfElse
-//   = IfElse: "if" "(" Parameter parameter ")" Statement* statementsif "else" "()" Statement* statementselse "endIf" "()" 
-//   | "if" "(" Parameter parameter ")" Statement* statementsif "endIf" "()"
-//   ; 
-
-// syntax Include
-// 	= include: "#include" LOCATION location
-// 	;
-
-// syntax FuncCall
-// 	= funcCall: NAME functionName "(" Arguments arguments ")"
-// 	;
-
 syntax Parameter 
 	= parameter: NAME name "=" Option option
 	| parameterWithListContent: NAME name "=" "[" {Option ","}* options "]"
 	;
-
-// syntax Arguments =
-// 	  Parameter parameter "," Arguments arguments
-// 	| Parameter parameter
-// 	;	
-// Written recurcisely as not to match func(arg1=2 arg2=3) -> syntax error!
-
-// syntax ListContent
-// 	= listContent: "[" Option option ("," Option)* options "]"
-// 	;
-
 syntax Option
 	= optionName: NAME name
 	| optionBoolean: BOOLEAN boolean
@@ -106,15 +81,6 @@ syntax Option
 	| optionFloat: FLOAT float "f"
 	| optionString: STRING string
 	;
-
-// syntax IfElse
-// 	= ifElse: "if" "(" Parameter parameter ")" Statement+ statementsif "else()" Statement+ statementselse "endIf()" 
-// 	;
-
-// syntax Condition
-// 	= condition: NAME name "=" Option option
-// 	;
-//Condition in a conditional statement - to be expanded
 
 //////////////////////////////////////////////////	
 //LD parsers
