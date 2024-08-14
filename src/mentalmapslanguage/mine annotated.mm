@@ -1,23 +1,35 @@
 //Unexplored 2 Level Template ""Mine" written in Mental Maps DSL
 //Annotated with corresponding rules from Level Template DSL
 
-level template Mine{ //name="dest.cave (mine)"
+//Types
+enum Variant = [a,b];
+enum Theme = [cave, hazards, openGates, narrowPassages, noOpportunities, noSideTunnels, CAVEHAZARD, RARECAVEHAZARD];
+enum Terrain = [CLOSED, bedrock, sheerDown, someBushes, canyonDown, rareRocks, someRocks, grass, slopeBackUp, forest, cliffDown, VEGETATION, outside, solidRock, NOTLOW, rareBushes, sparseTrees, OPEN, dirt, slopeUp, bushes, HIGH, BUSHES, cave];
+enum LightSetting =  [SemiDark, daylight, Dark];
+enum PassageType = [placed];
 
-    extra{
-    type="Destination";
-    civType="Cave";
-    mapIcon="Cave1";
-    }
+//parameter - Level scope
+str type;
+str civType;
+str mapIcon; 
 
-    site Main Site{ //id="mainSite"
+level mine{ //name="mine"
+
+    //extra{
+    //type="Destination";
+    //civType="Cave";
+    //mapIcon="Cave1";
+    //}
+
+    site mainSite{ //id="mainSite"
         location North; //direction="north"
         size small or medium; //[small,medium]
 
         extra{
-            themes="cave|hazards|CAVEHAZARD|[CAVEHAZARD]|openGates|narrowPassages";
-            terrainAB="solidRock";
-            terrainC="OPEN";
-            terrainDEF="solidRock";
+            Theme themes = [cave, hazards, CAVEHAZARD, openGates, narrowPassages]; 
+            Terrain terrainAB = solidRock;
+            Terrain terrainC = OPEN;
+            Terrain terrainDEF = solidRock;
         }
 
         entrance{
@@ -31,7 +43,7 @@ level template Mine{ //name="dest.cave (mine)"
             location North; //placeIsNorth
             antechamber; //addAntechamber
             isGoal;
-            lock Natural Lock; //entranceGateIsNaturalLock
+            lock NaturalLock; //entranceGateIsNaturalLock
             style clearing; //clearing
             item ore; //spawnOre
         }
@@ -42,18 +54,18 @@ level template Mine{ //name="dest.cave (mine)"
         }
     }
 
-    site Secret Site{ //id="secretSite", parent="mainSite"
+    site secretSite{ //id="secretSite", parent="mainSite"
         location NorthEast; //direction="northEast"
         size tiniest; //tiniest
 
         extra{
-            themes="cave|openGates|narrowPassages|noOpportunities|noSideTunnels|CAVEHAZARD|[RARECAVEHAZARD]";
-            terrain="cave";
-            lightSettings="SemiDark";
-            passageType="placed";
-            terrainAB="solidRock";
-            terrainC="OPEN";
-            terrainDEF="solidRock";
+            Theme themes = [cave, openGates, narrowPassages, noOpportunities, noSideTunnels, CAVEHAZARD, RARECAVEHAZARD];
+            Terrain terrain = cave;
+            LightSetting lightSettings = SemiDark;
+            PassageType passageType = placed;
+            Terrain terrainAB = solidRock;
+            Terrain terrainC = OPEN;
+            Terrain terrainDEF = solidRock;
         }
 
         entrance{ 

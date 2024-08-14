@@ -3,28 +3,29 @@
 level template Mine{
 
     site Main Site{ 
-        location North; 
-        size small or medium; 
+        location = North; 
+        size = small or medium; 
 
         entrance{
-            location South; 
+            location = South; 
         }
         
         environment{ 
         }
 
         room The Place{ 
-            location North; 
+            location = North; 
             isGoal;
+
             antechamber;
-            lock Natural Lock; 
+            lock NaturalLock; 
             style clearing; 
             item ore; 
         }
 
         path Path{ 
             direction South and Up; 
-            story cue Ore Hint; 
+            storyCue OreHint; 
         }
     }
 
