@@ -9,9 +9,9 @@ enum LightSetting =  [SemiDark, daylight, Dark];
 enum PassageType = [placed];
 
 //parameter - Level scope
-str type;
-str civType;
-str mapIcon; 
+//str type;
+//str civType;
+//str mapIcon; 
 
 level mine{ //name="mine"
 

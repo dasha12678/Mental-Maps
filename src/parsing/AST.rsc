@@ -40,25 +40,9 @@ data Statement
     | ifElse(Parameter parameter, list[Statement] statementsIf, list[Statement] statementsElse)
     | include(LOCATION location);
 
-// data IfElse
-//     = ifElse(Parameter parameter, list[Statement] statementsIf, list[Statement] statementsElse)
-//     | ifElse(Parameter parameter, list[Statement] statementsIf);
-
-// data Include
-//     = include(LOCATION location);
-
-// data FuncCall
-//     = funcCall(NAME functionName, list[Parameter] parameters);
-
 data Parameter
     = parameter(str name, Option option)
     | parameterWithListContent(str name, list[Option] options);
-
-// data Arguments
-//     = arguments(list[Parameter] parameters);
-
-// data ListContent
-//     = listContent(list[Option] options);
 
 data Option
     = optionName(str name)
@@ -67,29 +51,5 @@ data Option
     | optionFloat(real float)
     | optionString(str string);
 
-// data IfElse
-//     = ifElse(Parameter parameter, list[Statement] statementsIf, list[Statement] statementsElse);
-
-// data Condition
-//     = condition(NAME name, Option option);
-
-// data INTEGER
-//     = integerValue(int val);
-
-//  data NAME
-//      = name(str val);
-
  data LOCATION
      = location(str val);
-
-// data STRING
-//     = stringValue(str val);
-
-//  data FLOAT
-//      = floatValue(real val);
-
-// data Value
-//  	= integer(int integer)
-//  	| boolean(bool boolean)
-// 	| varName(Name name)
-// 	;

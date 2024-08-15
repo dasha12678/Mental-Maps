@@ -1,23 +1,23 @@
 //Unexplored 2 Level Template ""Mine" written in Mental Maps DSL
 
-level template Mine{
+level Mine{
 
-    extra{
-    type="Destination";
-    civType="Cave";
-    mapIcon="Cave1";
-    }
+    // extra{
+    // type="Destination";
+    // civType="Cave";
+    // mapIcon="Cave1";
+    // }
 
-    site Main Site{ 
+    site MainSite{ 
         location North; 
-        size small or medium; 
+        size small; //or medium
 
-        extra{
-            themes="cave|hazards|CAVEHAZARD|[CAVEHAZARD]|openGates|narrowPassages";
-            terrainAB="solidRock";
-            terrainC="OPEN";
-            terrainDEF="solidRock";
-        }
+        // extra{
+        //     themes="cave|hazards|CAVEHAZARD|[CAVEHAZARD]|openGates|narrowPassages";
+        //     terrainAB="solidRock";
+        //     terrainC="OPEN";
+        //     terrainDEF="solidRock";
+        // }
 
         entrance{
             location South; 
@@ -26,18 +26,18 @@ level template Mine{
         environment{ 
         }
 
-        room The Place{ 
+        room thePlace{ 
             location North; 
             isGoal;
             antechamber;
-            lock Natural Lock; 
+            lock NaturalLock; 
             style clearing; 
             item ore; 
         }
 
         path Path{ 
-            direction South and Up; 
-            story cue Ore Hint; 
+            direction South;
+            //storycue oreHint; 
         }
     }
 
@@ -45,21 +45,21 @@ level template Mine{
         location NorthEast; 
         size tiniest;
 
-        extra{
-            themes="cave|openGates|narrowPassages|noOpportunities|noSideTunnels|CAVEHAZARD|[RARECAVEHAZARD]";
-            terrain="cave";
-            lightSettings="SemiDark";
-            passageType="placed";
-            terrainAB="solidRock";
-            terrainC="OPEN";
-            terrainDEF="solidRock";
-        }
+        // extra{
+        //     themes="cave|openGates|narrowPassages|noOpportunities|noSideTunnels|CAVEHAZARD|[RARECAVEHAZARD]";
+        //     terrain="cave";
+        //     lightSettings="SemiDark";
+        //     passageType="placed";
+        //     terrainAB="solidRock";
+        //     terrainC="OPEN";
+        //     terrainDEF="solidRock";
+        // }
 
         entrance{ 
             location South; 
         }
 
-        room Room with Tunnel{ 
+        room RoomWithTunnel{ 
             style tunnel;
             encounter hazard;
         }

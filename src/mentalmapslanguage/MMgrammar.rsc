@@ -12,7 +12,7 @@ lexical BOOLEAN
 	= @category="Boolean" "true" | "false";
 
 //reserved keywords 
-keyword Keywords = "" | "if" | "else" | "endIf" | "true" | "false";
+keyword Keywords = DIRECTION | SIZE | TypeOfPlace | "enum" | "if" | "true" | "false" | "from" | "to" | "in" | "direction";
 
 //integer
 lexical INTEGER
@@ -33,66 +33,85 @@ lexical STRING
 
 //size
 lexical SIZE
-  = @category= "tiny" | "small" | "medium" | "large";
+  = @category="Size" tiny: "tiny" | small: "small" | medium: "medium" | large: "large";
 
 //direction
 lexical DIRECTION
-  = @category= "North" | "East" | "South" | "West" | "Northeast" | "Northwest" | "Southeast" | "Southwest";
+  = @category="Direction" north: "North" | east: "East" | south: "South" | west: "West" | northeast: "Northeast" | northwest: "Northwest" | southeast: "Southeast" | southwest: "Southwest";
 
+syntax TypeOfPlace
+  = @category="Place" site: "site" | room: "room" | path: "path" | entrance: "entrance" | environment: "environment";
+
+//Level has at least one Place and zero or more Connections
 start syntax Level
-	= TypeDef
-    | "level" NAME "{"
+  = level: "level" NAME name "{" 
+    TypeDef* typedefs
+    Annotation* annotations
+    Place+ places
+    Connection* connections
+    "}"
+    ;
 
-    "}";
-
-//Site block consists of statements
-syntax Site
-= "site" NAME "{"
-  [Statement]*
+//Place block consists of statements
+syntax Place
+= place: TypeOfPlace typeOfPlace NAME? name "{"
+  Statement* statements
+  Place* subPlaces
   "}"
   ;
 
 //Types of statements
 syntax Statement
-  = Annotation
-  | "location" DIRECTION
-  "size" SIZE
+  = annotation: Annotation annotation
+  | location: "location" DIRECTION location";"
+  | size: "size" SIZE size ";"
+  | isGoal: "isGoal" ";"
+  | antechamber: "antechamber" ";"
+  | lock: "lock" NAME lock ";"
+  | key: "key" NAME key";"
+  | style: "style" NAME style ";" 
+  | item: "item" NAME item ";"
+  | direction: "direction" DIRECTION direction ";"
+  | encounter: "encounter" NAME encounter ";"
+  | storyElement: "storyElement" NAME storyElement ";"
   ;
 
 syntax Annotation
-    = "extra" "{"
-    [Extra]*
+    = annotation: "extra" "{"
+    EnumCall* enumCalls
     "}"
     ;
 
 syntax EnumCall 
-  = 
-  TypeDef NAME "=" NAME
-  |TypeDef NAME "=" "[" {NAME ","}* "]"
+  = enumCallSingle: Type chosenType NAME name "=" NAME chosenValue ";"
+  |enumCallMultiple: Type chosenType NAME name "=" "[" {NAME ","}* chosenValues "]" ";"
+  ;
+
+//Connection
+syntax Connection 
+  = connection: "connection" "from" NAME site1 "to" NAME site2 "in" "direction" DIRECTION direction
   ;
 
 //Type checking 
 syntax Type
-    = "bool"
-    | "string"
-    | "int"
-    | "float"
-    | NAME
+    = boolean: "bool"
+    | string: "string"
+    | integer: "int"
+    | float: "float"
+    | customType: NAME
     ;
 
 syntax TypeDef
-    = typedef: "enum" NAME "=" "[" {Value ","}* "]"
-    | 
+    = typedef: "enum" NAME name "=" "[" {Value ","}* values "]" ";"
     ;
 
 syntax Value 
-    = BOOLEAN
-    | INTEGER
-    | FLOAT
-    | STRING
-    | NAME //enum value, no lookup
-    | "[" {Value ","}* "]"
-    | "{" {Value ","}* "}"
+    = boolValue: BOOLEAN
+    | intValue: INTEGER
+    | floatValue: FLOAT
+    | stringValue: STRING
+    | enumValue: NAME //enum value, no lookup
+    | listValue: "[" {Value ","}* "]"
+    | setValue:"{" {Value ","}* "}"
     ;
-
 
