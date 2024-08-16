@@ -18,23 +18,21 @@ import mentalmapslanguage::MMgrammar;
 // AST
 ////////////////////////////////////////////////
 
-data NAME = name(str name);
+// data SIZE = 
+//   tiny()
+//   | small()
+//   | medium()
+//   | large();
 
-data SIZE = 
-  tiny()
-  | small()
-  | medium()
-  | large();
-
-data DIRECTION = 
-north() 
-| east() 
-| south() 
-| west() 
-| northeast() 
-| northwest()
-| southeast() 
-| southwest();
+// data DIRECTION = 
+// north() 
+// | east() 
+// | south() 
+// | west() 
+// | northeast() 
+// | northwest()
+// | southeast() 
+// | southwest();
 
 data TypeOfPlace = 
 site()
@@ -48,41 +46,41 @@ data Type
     | string(str string) 
     | integer(int integer) 
     | float(real float) 
-    | customType(NAME name);
+    | customType(str name);
 
-data Level = level(NAME name, list[TypeDef] typedefs, list[Annotation] annotations, list[Place] places, list[Connection] connections);
+data Level = level(str name, list[TypeDef] typedefs, list[Annotation] annotations, list[Place] places, list[Connection] connections);
 
-data Place = place(TypeOfPlace typeOfPlace, NAME name, list[Statement] statements, list[Place] subPlaces);
+data Place = place(TypeOfPlace typeOfPlace, str name, list[Statement] statements, list[Place] subPlaces);
 
 data Statement = 
-    location(DIRECTION location) 
-  | size(SIZE size) 
+    location(Value location) 
+  | size(Value size) 
   | isGoal() 
   | antechamber() 
-  | lock(NAME lock) 
-  | key(NAME key) 
-  | style(NAME style) 
-  | item(NAME item) 
-  | direction(DIRECTION direction) 
-  | encounter(NAME encounter) 
-  | storyElement(NAME storyElement) 
+  | lock(str lock) 
+  | key(str key) 
+  | style(str style) 
+  | item(str item) 
+  | direction(Value direction) 
+  | encounter(str encounter) 
+  | storyElement(str storyElement) 
   | annotation(Annotation annotation);
 
 data Annotation = annotation(list[EnumCall] enumCalls);
 
 data EnumCall = 
-    enumCallSingle (Type chosenType, NAME name, NAME chosenValue) 
-  | enumCallMultiple(Type chosenType, NAME name, list[NAME] chosenValues);
+    enumCallSingle (Type chosenType, str name, str chosenValue) 
+  | enumCallMultiple(Type chosenType, str name, list[str] chosenValues);
 
-data Connection = connection(NAME site1, NAME site2, DIRECTION direction);
+data Connection = connection(str site1, str site2, Value direction);
 
-data TypeDef = typedef(NAME name, list[Value] values);
+data TypeDef = typedef(str name, list[Value] values);
 
 data Value = 
     boolValue(bool boolValue)
   | intValue(int intValue)
   | floatValue(real floatValue)
   | stringValue(str stringValue)
-  | enumValue(NAME nameValue)
-  | listValue(list[Value] listValue)
-  | setValue(set[Value] setValue);
+  | enumValue(str nameValue)
+  | listValue(list[Value] listValues)
+  | setValue(set[Value] setValues);

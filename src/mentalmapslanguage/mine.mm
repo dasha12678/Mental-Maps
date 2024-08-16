@@ -1,23 +1,22 @@
-//Unexplored 2 Level Template ""Mine" written in Mental Maps DSL
-
 level Mine{
 
-    // extra{
-    // type="Destination";
-    // civType="Cave";
-    // mapIcon="Cave1";
-    // }
+    //Types
+    enum Variant = [a,b];
+    enum Theme = [cave, hazards, openGates, narrowPassages, noOpportunities, noSideTunnels, CAVEHAZARD, RARECAVEHAZARD];
+    enum Terrain = [CLOSED, bedrock, sheerDown, someBushes, canyonDown, rareRocks, someRocks, grass, slopeBackUp, forest, cliffDown, VEGETATION, outside, solidRock, NOTLOW, rareBushes, sparseTrees, OPEN, dirt, slopeUp, bushes, HIGH, BUSHES, cave];
+    enum LightSetting =  [SemiDark, daylight, Dark];
+    enum PassageType = [placed];
 
     site MainSite{ 
-        location North; 
-        size small; //or medium
+        location North;
+        size small;
 
-        // extra{
-        //     themes="cave|hazards|CAVEHAZARD|[CAVEHAZARD]|openGates|narrowPassages";
-        //     terrainAB="solidRock";
-        //     terrainC="OPEN";
-        //     terrainDEF="solidRock";
-        // }
+        extra{
+            Theme themes = [cave, hazards, CAVEHAZARD, openGates, narrowPassages]; 
+            Terrain terrainAB = solidRock;
+            Terrain terrainC = OPEN;
+            Terrain terrainDEF = solidRock;
+        }
 
         entrance{
             location South; 
@@ -37,23 +36,23 @@ level Mine{
 
         path Path{ 
             direction South;
-            //storycue oreHint; 
-        }
+            storyElement oreHint; 
+        } 
     }
 
-    site Secret Site{ 
-        location NorthEast; 
-        size tiniest;
+    site SecretSite{ 
+        location Northeast; 
+        size tiny;
 
-        // extra{
-        //     themes="cave|openGates|narrowPassages|noOpportunities|noSideTunnels|CAVEHAZARD|[RARECAVEHAZARD]";
-        //     terrain="cave";
-        //     lightSettings="SemiDark";
-        //     passageType="placed";
-        //     terrainAB="solidRock";
-        //     terrainC="OPEN";
-        //     terrainDEF="solidRock";
-        // }
+        extra{
+            Theme themes = [cave, openGates, narrowPassages, noOpportunities, noSideTunnels, CAVEHAZARD, RARECAVEHAZARD];
+            Terrain terrain = cave;
+            LightSetting lightSettings = SemiDark;
+            PassageType passageType = placed;
+            Terrain terrainAB = solidRock;
+            Terrain terrainC = OPEN;
+            Terrain terrainDEF = solidRock;
+        }
 
         entrance{ 
             location South; 
@@ -65,6 +64,6 @@ level Mine{
         }
     }
 
-connection from Main Site to Secret Site in direction North 
-connection from Secret Site to Main Site in direction SouthEast 
+connection from MainSite to SecretSite in direction North
+connection from SecretSite to MainSite in direction Southeast 
 }

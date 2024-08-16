@@ -12,7 +12,7 @@ lexical BOOLEAN
 	= @category="Boolean" "true" | "false";
 
 //reserved keywords 
-keyword Keywords = DIRECTION | SIZE | TypeOfPlace | "enum" | "if" | "true" | "false" | "from" | "to" | "in" | "direction";
+keyword Keywords = TypeOfPlace | "enum" | "if" | "true" | "false" | "from" | "to" | "in" | "direction";
 
 //integer
 lexical INTEGER
@@ -32,12 +32,12 @@ lexical STRING
   = @category="String" "\"" ![\n\"]* "\"";
 
 //size
-lexical SIZE
-  = @category="Size" tiny: "tiny" | small: "small" | medium: "medium" | large: "large";
+//lexical SIZE
+//  = @category="Size" tiny: "tiny" | small: "small" | medium: "medium" | large: "large";
 
 //direction
-lexical DIRECTION
-  = @category="Direction" north: "North" | east: "East" | south: "South" | west: "West" | northeast: "Northeast" | northwest: "Northwest" | southeast: "Southeast" | southwest: "Southwest";
+//lexical DIRECTION
+//  = @category="Direction" north: "North" | east: "East" | south: "South" | west: "West" | northeast: "Northeast" | northwest: "Northwest" | southeast: "Southeast" | southwest: "Southwest";
 
 syntax TypeOfPlace
   = @category="Place" site: "site" | room: "room" | path: "path" | entrance: "entrance" | environment: "environment";
@@ -63,15 +63,15 @@ syntax Place
 //Types of statements
 syntax Statement
   = annotation: Annotation annotation
-  | location: "location" DIRECTION location";"
-  | size: "size" SIZE size ";"
+  | location: "location" Value location";"
+  | size: "size" Value size ";"
   | isGoal: "isGoal" ";"
   | antechamber: "antechamber" ";"
   | lock: "lock" NAME lock ";"
   | key: "key" NAME key";"
   | style: "style" NAME style ";" 
   | item: "item" NAME item ";"
-  | direction: "direction" DIRECTION direction ";"
+  | direction: "direction" Value direction ";"
   | encounter: "encounter" NAME encounter ";"
   | storyElement: "storyElement" NAME storyElement ";"
   ;
@@ -89,7 +89,7 @@ syntax EnumCall
 
 //Connection
 syntax Connection 
-  = connection: "connection" "from" NAME site1 "to" NAME site2 "in" "direction" DIRECTION direction
+  = connection: "connection" "from" NAME site1 "to" NAME site2 "in" "direction" Value direction
   ;
 
 //Type checking 
@@ -105,13 +105,13 @@ syntax TypeDef
     = typedef: "enum" NAME name "=" "[" {Value ","}* values "]" ";"
     ;
 
-syntax Value 
-    = boolValue: BOOLEAN
-    | intValue: INTEGER
-    | floatValue: FLOAT
-    | stringValue: STRING
-    | enumValue: NAME //enum value, no lookup
-    | listValue: "[" {Value ","}* "]"
-    | setValue:"{" {Value ","}* "}"
+syntax Value
+    = boolValue: BOOLEAN boolValue
+    | intValue: INTEGER intValue
+    | floatValue: FLOAT floatValue
+    | stringValue: STRING stringValue
+    | enumValue: NAME nameValue //enum value, no lookup
+    | listValue: "[" {Value ","}* listValues "]"
+    | setValue:"{" {Value ","}* setValues "}"
     ;
 
