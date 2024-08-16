@@ -1,4 +1,6 @@
-level Mine{
+//Unexplored 2 Level "Mine" written in Mental Maps DSL.
+
+level mine{
 
     //Types
     enum Variant = [a,b];
@@ -7,9 +9,19 @@ level Mine{
     enum LightSetting =  [SemiDark, daylight, Dark];
     enum PassageType = [placed];
 
-    site MainSite{ 
-        location North;
-        size small;
+    enum Location = [North, East, South, West];
+    enum Direction = [North, East, South, West, Northeast, Northwest, Southeast, Southwest];
+    enum Size = [tiniest, tiny, small, medium, large];
+
+    extra{
+        type = "Destination";
+        civType = "Cave";
+        mapIcon = "Cave1";
+    }
+
+    site mainSite{ 
+        Location location North;
+        Size size small;
 
         extra{
             Theme themes = [cave, hazards, CAVEHAZARD, openGates, narrowPassages]; 
@@ -19,14 +31,14 @@ level Mine{
         }
 
         entrance{
-            location South; 
+            Location location South; 
         }
         
         environment{ 
         }
 
         room thePlace{ 
-            location North; 
+            Location location North; 
             isGoal;
             antechamber;
             lock NaturalLock; 
@@ -34,15 +46,15 @@ level Mine{
             item ore; 
         }
 
-        path Path{ 
-            direction South;
+        path{ 
+            Direction direction South;
             storyElement oreHint; 
         } 
     }
 
     site SecretSite{ 
-        location Northeast; 
-        size tiny;
+        Direction location Northeast; 
+        Size size tiny;
 
         extra{
             Theme themes = [cave, openGates, narrowPassages, noOpportunities, noSideTunnels, CAVEHAZARD, RARECAVEHAZARD];
@@ -55,10 +67,10 @@ level Mine{
         }
 
         entrance{ 
-            location South; 
+            Location location South; 
         }
 
-        room RoomWithTunnel{ 
+        room{ 
             style tunnel;
             encounter hazard;
         }

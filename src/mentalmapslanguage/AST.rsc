@@ -15,24 +15,8 @@ import ParseTree;
 import mentalmapslanguage::MMgrammar;
 
 ////////////////////////////////////////////////
-// AST
+// ADT
 ////////////////////////////////////////////////
-
-// data SIZE = 
-//   tiny()
-//   | small()
-//   | medium()
-//   | large();
-
-// data DIRECTION = 
-// north() 
-// | east() 
-// | south() 
-// | west() 
-// | northeast() 
-// | northwest()
-// | southeast() 
-// | southwest();
 
 data TypeOfPlace = 
 site()
@@ -52,19 +36,15 @@ data Level = level(str name, list[TypeDef] typedefs, list[Annotation] annotation
 
 data Place = place(TypeOfPlace typeOfPlace, str name, list[Statement] statements, list[Place] subPlaces);
 
-data Statement = 
-    location(Value location) 
-  | size(Value size) 
-  | isGoal() 
-  | antechamber() 
-  | lock(str lock) 
-  | key(str key) 
-  | style(str style) 
-  | item(str item) 
-  | direction(Value direction) 
-  | encounter(str encounter) 
-  | storyElement(str storyElement) 
-  | annotation(Annotation annotation);
+data Statement
+  = AnnotationStatement(Annotation annotation)
+  | EntityStatement(Entity entity);
+
+data Entity
+  = TypeOfEntity(str typeOfEntity)
+  | SingleEntity(str nameOfEntity)
+  | MultipleEntities(Entity firstEntity, Entity secondEntity)
+  | chooseEntity(Entity firstEntity, Entity secondEntity);
 
 data Annotation = annotation(list[EnumCall] enumCalls);
 

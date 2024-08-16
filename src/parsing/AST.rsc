@@ -26,7 +26,7 @@ public parsing::AST::Template parsePipelineToAST(loc location)
   = implodePipeline(LD_parse(location));
 
 ////////////////////////////////////////////////
-// AST
+// ADT
 ////////////////////////////////////////////////
 
 //ADT that defines the abstract syntax of state machines.

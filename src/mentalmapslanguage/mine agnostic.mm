@@ -1,22 +1,21 @@
-//Hypothetical Level Template ""Mine" written in Mental Maps DS
+//Hypothetical Level "Mine" written in Mental Maps DSL.
 
-level template Mine{
+level Mine{
 
-    site Main Site{ 
-        location = North; 
-        size = small or medium; 
+    site MainSite{ 
+        location North;
+        size small;
 
         entrance{
-            location = South; 
+            location South; 
         }
         
         environment{ 
         }
 
-        room The Place{ 
-            location = North; 
+        room thePlace{ 
+            location North; 
             isGoal;
-
             antechamber;
             lock NaturalLock; 
             style clearing; 
@@ -24,25 +23,25 @@ level template Mine{
         }
 
         path Path{ 
-            direction South and Up; 
-            storyCue OreHint; 
-        }
+            direction South;
+            storyElement oreHint; 
+        } 
     }
 
-    site Secret Site{ 
-        location NorthEast; 
-        size tiniest;
+    site SecretSite{ 
+        location Northeast; 
+        size tiny;
 
         entrance{ 
             location South; 
         }
 
-        room Room with Tunnel{ 
+        room RoomWithTunnel{ 
             style tunnel;
             encounter hazard;
         }
     }
 
-connection from Main Site to Secret Site in direction North 
-connection from Secret Site to Main Site in direction SouthEast 
+connection from MainSite to SecretSite in direction North
+connection from SecretSite to MainSite in direction Southeast 
 }

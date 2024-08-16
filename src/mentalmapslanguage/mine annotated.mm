@@ -1,29 +1,31 @@
-//Unexplored 2 Level Template ""Mine" written in Mental Maps DSL
-//Annotated with corresponding rules from Level Template DSL
+//Unexplored 2 Level "Mine" written in Mental Maps DSL.
+//Annotated with corresponding rules from Level Template DSL.
 
-//Types
-enum Variant = [a,b];
-enum Theme = [cave, hazards, openGates, narrowPassages, noOpportunities, noSideTunnels, CAVEHAZARD, RARECAVEHAZARD];
-enum Terrain = [CLOSED, bedrock, sheerDown, someBushes, canyonDown, rareRocks, someRocks, grass, slopeBackUp, forest, cliffDown, VEGETATION, outside, solidRock, NOTLOW, rareBushes, sparseTrees, OPEN, dirt, slopeUp, bushes, HIGH, BUSHES, cave];
-enum LightSetting =  [SemiDark, daylight, Dark];
-enum PassageType = [placed];
+Place level mine{ //name="mine"
+    //Types
+    enum Variant = [a,b];
+    enum Theme = [cave, hazards, openGates, narrowPassages, noOpportunities, noSideTunnels, CAVEHAZARD, RARECAVEHAZARD];
+    enum Terrain = [CLOSED, bedrock, sheerDown, someBushes, canyonDown, rareRocks, someRocks, grass, slopeBackUp, forest, cliffDown, VEGETATION, outside, solidRock, NOTLOW, rareBushes, sparseTrees, OPEN, dirt, slopeUp, bushes, HIGH, BUSHES, cave];
+    enum LightSetting =  [SemiDark, daylight, Dark];
+    enum PassageType = [placed];
 
-//parameter - Level scope
-//str type;
-//str civType;
-//str mapIcon; 
+    enum Place = [site, room, path, entrance, environment];
+    enum Location = [North, East, South, West];
+    enum Direction = [North, East, South, West, Northeast, Northwest, Southeast, Southwest];
+    enum Size = [tiniest, tiny, small, medium, large];
 
-level mine{ //name="mine"
+    //Populating a level
+    enum Lock = []
 
-    //extra{
-    //type="Destination";
-    //civType="Cave";
-    //mapIcon="Cave1";
-    //}
+    extra{
+        type = "Destination";
+        civType = "Cave";
+        mapIcon = "Cave1";
+    }
 
-    site mainSite{ //id="mainSite"
-        location North; //direction="north"
-        size small or medium; //[small,medium]
+    Place site mainSite{ //id="mainSite"
+        Location location = North; //direction="north"
+        Size size = small or medium; //[small,medium]
 
         extra{
             Theme themes = [cave, hazards, CAVEHAZARD, openGates, narrowPassages]; 
@@ -33,14 +35,14 @@ level mine{ //name="mine"
         }
 
         entrance{
-            location South; //entranceSouth
+            Location location = South; //entranceSouth
         }
         
         environment{ //buildEnvironment
         }
 
-        room The Place{ //roomIsPlace
-            location North; //placeIsNorth
+        Place room thePlace{ //roomIsPlace
+            Location location = North; //placeIsNorth
             antechamber; //addAntechamber
             isGoal;
             lock NaturalLock; //entranceGateIsNaturalLock
@@ -49,14 +51,14 @@ level mine{ //name="mine"
         }
 
         path{ //roomIsPath
-            direction South and Up; //pathLeadsSouthAndUp
+            Direction direction South and Up; //pathLeadsSouthAndUp
             story cue Ore Hint; //spawnOreHint
         }
     }
 
     site secretSite{ //id="secretSite", parent="mainSite"
-        location NorthEast; //direction="northEast"
-        size tiniest; //tiniest
+        Location location NorthEast; //direction="northEast"
+        Size size tiniest; //tiniest
 
         extra{
             Theme themes = [cave, openGates, narrowPassages, noOpportunities, noSideTunnels, CAVEHAZARD, RARECAVEHAZARD];
@@ -69,12 +71,12 @@ level mine{ //name="mine"
         }
 
         entrance{ 
-            location South; //entranceSouth
+            Location location South; //entranceSouth
         }
 
         //noEnvironment
 
-        room Room with Tunnel{ //roomIsRoom
+        room{ //roomIsRoom
             style tunnel //tunnel
             encounter hazard //hazard
         }
@@ -83,5 +85,3 @@ level mine{ //name="mine"
 connection from Main Site to Secret Site in direction North //addConnection(start="mainSite", end="secretSite", direction="North", passageType="placed")
 connection from Secret Site to Main Site in direction SouthEast //addConnection(start="secretSite", end="mainSite", direction="SouthEast", passageType="placed")
 }
-
-//Varianting to be added at a later stage
