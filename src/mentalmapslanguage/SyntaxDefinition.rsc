@@ -1,4 +1,4 @@
-module mentalmapslanguage::MMgrammar
+module mentalmapslanguage::SyntaxDefinition
 
 lexical WhitespaceAndComment       
    = [\ \t\n\r]     
@@ -10,7 +10,7 @@ layout Layout = WhitespaceAndComment* !>> [\ \t\n\r/];
 lexical BOOLEAN
 	= @category="Boolean" "true" | "false";
 
-keyword Keywords = "enum" | "if" | "true" | "false" | "from" | "to" | "in" | "direction" | "or" | "and";
+keyword Keywords = "enum" | "if" | "true" | "false" | "from" | "to" | "or" | "and";
 
 lexical INTEGER
   = @category="Integer" [\-]? [0-9]+ !>> [0-9];
@@ -25,55 +25,46 @@ lexical ID
 lexical STRING
   = @category="String" "\"" ![\n\"]* "\"";
 
+syntax TypeOfPlace
+  = @category="Place" site: "site" | room: "room" | path: "path" | entrance: "entrance" | environment: "environment";
+
 start syntax Level
   = level: "level" ID name "{" 
     TypeDef* typedefs
-    Annotation* annotations
+    Statement* statements
     Place+ places
     Connection* connections
     "}"
     ;
 
 syntax Place
-= place: ID typeOfPlace ID? name "{"
+= place: TypeOfPlace ID? name "{"
   Statement* statements
   Place* subPlaces
   "}"
   ;
   syntax Statement
-  = annotation: Annotation annotation
-  | entity: Entity entity
+  = annotation: "extra" "{" EnumCall* enumCalls "}"
+  | enumCall: EnumCall enumCalls
   ;
-
-syntax Entity
-  = ID typeOfEntity "="
-  | singleEntity: ID nameOfEntity ";"
-  > multipleEntities: Entity firstEntity "and" Entity secondEntity ";"
-  > chooseEntity: Entity firstEntity "or" Entity secondEntity ";"
-  ;
-
-syntax Annotation
-    = annotation: "extra" "{"
-    EnumCall* enumCalls
-    "}"
-    ;
 
 syntax EnumCall 
-  = enumCallSingle: Type chosenType ID name "=" ID chosenValue ";"
-  |enumCallMultiple: Type chosenType ID name "=" "[" {ID ","}* chosenValues "]" ";"
+  = enumCallSingle: ID? chosenType ID name "=" ID chosenValue ";"
+  |enumCallMultiple: ID? chosenType ID name "=" "[" {ID ","}* chosenValues "]" ";"
+  > enumCallChoose: ID? chosenType ID name "=" ID chosenValue1 "or" ID chosenValue2 ";"
   ;
 
 syntax Connection 
   = connection: "connection" "from" ID place1 "to" ID place2 "in" "direction" Value direction
   ;
 
-syntax Type
-    = boolean: "bool"
-    | string: "string"
-    | integer: "int"
-    | float: "float"
-    | customType: ID
-    ;
+// syntax Type
+//     = boolean: "bool"
+//     | string: "string"
+//     | integer: "int"
+//     | float: "float"
+//     | customType: ID
+//     ;
 
 syntax TypeDef
     = typedef: "enum" ID name "=" "[" {Value ","}* values "]" ";"

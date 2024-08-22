@@ -8,46 +8,59 @@
 // @date    10-10-2021
 //
 //////////////////////////////////////////////////////////////////////////////
-module mentalmaps
+module mentalmapslanguage::RegisterLanguage
 
-
-// import util::IDE;
-// import vis::Figure;
 import util::LanguageServer;
 import util::Reflective;
 import IO;
-
-import parsing::TemplateSyntax;
 import ParseTree;
 
-set[LanguageService] LTContributions() = {
+import mentalmapslanguage::AST;
+import mentalmapslanguage::Resolve;
+import mentalmapslanguage::Check;
+import mentalmapslanguage::CST2AST;
+import mentalmapslanguage::SyntaxDefinition;
+
+set[LanguageService] MMContributions() = {
     parser(Tree(str txt, loc src) {
-      return parse(#start[Template], txt, src, allowAmbiguity=true);
+      return parse(#start[Level], txt, src);
     }),
       
-     outliner(list[DocumentSymbol] (start[Template] input) {
+     outliner(list[DocumentSymbol] (start[Level] input) {
         c = [symbol("<input.src.path>", DocumentSymbolKind::\file(), input.src, children=
-            [ symbol("<stmt>", \method(), stmt.src) | /Statement stmt := input.top ])];
+            [ symbol("<plc>", \method(), plc.src) | /Place plc := input.top ])];
         return c;
-     })
-  }; 
+     }),
+     summarizer(mySummarizer
+        , providesDocumentation = true
+        , providesDefinitions = true
+        , providesReferences = false
+        , providesImplementations = false)
+  };
+
+str type2str(tint()) = "integer";
+str type2str(tbool()) = "boolean";
+str type2str(tstr()) = "string";
+str type2str(tunknown()) = "unknown";
 
 
-//symbol("<functionName.src>", \function(), input.src) 
+Summary mySummarizer(loc origin, start[Level] input) {
+  Level ast = cst2ast(input);
+  RefGraph g = resolve(ast);
+  TEnv tenv = collect(ast);
+  set[Message] msgs = check(ast, tenv, g.useDef);
 
-void wetest(start[Template] t) {
-   t = \t.top;
-   top-down-break visit(t) {
-    case (Statement) `<NAME _> (<{Parameter ","}* _>)`:
-    println("Statement");
-  }
+  rel[loc, Message] msgMap = {< m.at, m> | Message m <- msgs };
+  
+  rel[loc, str] docs = { <u, "Type: <type2str(t)>"> | <loc u, loc d> <- g.useDef, <d, _, _, Type t> <- tenv };
+  return summary(origin, messages = msgMap, definitions = g.useDef, documentation = docs);
 }
 
 public void main(){
 
 	registerLanguage(
 		language(
-			pathConfig(srcs=[|std:///|, |project://mental-maps/src|]), "LevelTemplate", "lt", "Main", "LTContributions")
+			pathConfig(srcs=[|std:///|, |project://mental-maps/src|]), "MentalMaps", "mm", "Main", "MMContributions")
 			);
 	
 	println("IDE loaded.");

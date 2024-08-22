@@ -7,11 +7,11 @@
 // @date    15-08-2024
 //
 //////////////////////////////////////////////////////////////////////////////
-module mentalmapslanguage::MMParser
+module mentalmapslanguage::Parser
 
 import IO;
 import ParseTree;
-import mentalmapslanguage::MMgrammar;
+import mentalmapslanguage::SyntaxDefinition;
 import mentalmapslanguage::AST;
 import vis::Text;
 
@@ -53,6 +53,6 @@ public void parseAndImplodeProject(loc location) {
 public start[Level] LD_parse(loc file) =
   parse(#start[Level], file);
 
-loc level = |file:///C:/Users/dasha/Thesis/mental-maps/src/mentalmapslanguage/mine.mm|;
+loc level = |file:///C:/Users/dasha/Thesis/mental-maps/src/mentalmapslanguage/examples/mine.mm|;
 
 //println(prettyTree(t)); to pretty print the parse tree
