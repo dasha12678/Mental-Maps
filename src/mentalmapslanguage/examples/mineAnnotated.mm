@@ -16,13 +16,10 @@ level mine{ //name="mine"
     site mainSite{ //id="mainSite"
         Location location = North; //direction="north"
         Size size = small or medium; //[small,medium]
-
-        extra{
-            Theme themes = [cave, hazards, CAVEHAZARD, openGates, narrowPassages]; 
-            Terrain terrainAB = solidRock;
-            Terrain terrainC = OPEN;
-            Terrain terrainDEF = solidRock;
-        }
+        Theme themes = [cave, hazards, CAVEHAZARD, openGates, narrowPassages]; 
+        Terrain terrainAB = solidRock;
+        Terrain terrainC = OPEN;
+        Terrain terrainDEF = solidRock;
 
         entrance{
             Location location = South; //entranceSouth
@@ -50,15 +47,13 @@ level mine{ //name="mine"
         Location location = NorthEast; //direction="northEast"
         Size size = tiniest; //tiniest
 
-        extra{
-            Theme themes = [cave, openGates, narrowPassages, noOpportunities, noSideTunnels, CAVEHAZARD, RARECAVEHAZARD];
-            Terrain terrain = cave;
-            LightSetting lightSettings = SemiDark;
-            PassageType passageType = placed;
-            Terrain terrainAB = solidRock;
-            Terrain terrainC = OPEN;
-            Terrain terrainDEF = solidRock;
-        }
+        Theme themes = [cave, openGates, narrowPassages, noOpportunities, noSideTunnels, CAVEHAZARD, RARECAVEHAZARD];
+        Terrain terrain = cave;
+        LightSetting lightSettings = SemiDark;
+        PassageType passageType = placed;
+        Terrain terrainAB = solidRock;
+        Terrain terrainC = OPEN;
+        Terrain terrainDEF = solidRock;
 
         entrance{ 
             Location location = South; //entranceSouth

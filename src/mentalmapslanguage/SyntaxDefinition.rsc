@@ -31,7 +31,6 @@ syntax TypeOfPlace
 start syntax Level
   = level: "level" ID name "{" 
     TypeDef* typedefs
-    Statement* statements
     Place+ places
     Connection* connections
     "}"
@@ -39,15 +38,11 @@ start syntax Level
 
 syntax Place
 = place: TypeOfPlace ID? name "{"
-  Statement* statements
+  EnumCall* enumCalls
   Place* subPlaces
   "}"
   ;
-  syntax Statement
-  = annotation: "extra" "{" EnumCall* enumCalls "}"
-  | enumCall: EnumCall enumCalls
-  ;
-
+  
 syntax EnumCall 
   = enumCallSingle: ID? chosenType ID name "=" ID chosenValue ";"
   |enumCallMultiple: ID? chosenType ID name "=" "[" {ID ","}* chosenValues "]" ";"

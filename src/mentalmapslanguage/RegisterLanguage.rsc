@@ -38,9 +38,7 @@ set[LanguageService] MMContributions() = {
   };
 
 Summary mySummarizer(loc origin, start[Level] input) {
-  messages = {<m.at, m> | Message m <- check(input)};
-  println(messages);
-  return summary(origin, messages);
+  return summary(origin, messages = {<m.at, m> | Message m <- check(input) });
 }
 
 public void main(){

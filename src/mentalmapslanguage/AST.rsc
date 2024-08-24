@@ -30,13 +30,9 @@ site()
 //     | float(real float) 
 //     | customType(str name);
 
-data Level = level(str name, list[TypeDef] typedefs, list[Statement] statements, list[Place] places, list[Connection] connections);
+data Level = level(str name, list[TypeDef] typedefs, list[Place] places, list[Connection] connections);
 
-data Place = place(TypeOfPlace typeOfPlace, str name, list[Statement] statements, list[Place] subPlaces);
-
-data Statement
-  = annotation(list[EnumCall] enumCalls)
-  | enumCall(EnumCall enumCall);
+data Place = place(TypeOfPlace typeOfPlace, str name, list[EnumCall] enumCalls, list[Place] subPlaces);
 
 data EnumCall = 
     enumCallSingle(str chosenType, str name, str chosenValue) 
