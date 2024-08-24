@@ -1,72 +1,85 @@
 module mentalmapslanguage::Check
 
-import mentalmapslanguage::AST;
-import mentalmapslanguage::Resolve;
-import Message; // see standard library
+import IO;
+import Type;
+import mentalmapslanguage::Parser;
+import mentalmapslanguage::SyntaxDefinition;
+//import mentalmapslanguage::AST;
+import Message; 
 
-data Type
-  = tint()
-  | tbool()
-  | tstr()
-  | tunknown()
-  ;
+alias Env = map[str, list[Value]];
 
-// the type environment consisting of defined questions in the form 
-alias TEnv = rel[loc def, str name, str label, Type \type];
+//build an Enum Environment (Env) for a level
+//Collect all the enum definitions  - name and values it's allowed to take
+// Env collect(start[Level] level) 
+//   = ( "<name>": values | /(TypeDef) `enum <ID name> = [<{Value ","}* values>];` := level );
 
-// To avoid recursively traversing the form, use the `visit` construct
-// or deep match (e.g., `for (/question(...) := f) {...}` ) 
-TEnv collect(Level f) {
-  return {}; 
+Env collect(start[Level] level) {
+  Level topLevel = level.top;
+  return (
+    "<name>": values | /(TypeDef) `enum <ID name> = [<{Value ","}* values>];` := topLevel
+  );
 }
 
-set[Message] check(Level f, TEnv tenv, UseDef useDef) {
-  return {}; 
+void wetest(start[Level] level) {
+   level = \level.top;
+   top-down-break visit(level) {
+    case (TypeDef) `enum <ID _> = [<{Value ","}* values>];`: 
+    println(values);
+  }
 }
 
-// - produce an error if there are declared questions with the same name but different types.
-// - duplicate labels should trigger a warning 
-// - the declared type computed questions should match the type of the expression.
-// set[Message] check(AQuestion q, TEnv tenv, UseDef useDef) {
-//   return {}; 
-// }
+/*
+ * Checking level templates
+ EnumCalls are either stored in places or statements
+ */
 
-// Check operand compatibility with operators.
-// E.g. for an addition node add(lhs, rhs), 
-//   the requirement is that typeOf(lhs) == typeOf(rhs) == tint()
-// set[Message] check(AExpr e, TEnv tenv, UseDef useDef) {
-//   set[Message] msgs = {};
-  
-//   switch (e) {
-//     case ref(AId x):
-//       msgs += { error("Undeclared question", x.src) | useDef[x.src] == {} };
+// set[Message] check(start[Level] level)
+//   = { *check(ec, env) 
+//       | Place place <- level.top.places, // match each place
+//         Statement statement <- (place.statements),  // statements within each place
+//         EnumCall ec <- (statement.enumCalls)  // check enumCall within each statement
+//     }
+//   when Env env := collect(level);
 
-//     // etc.
-//   }
-  
-//   return msgs; 
-// }
+/*
+ * Checking enum calls
+*/
 
-// Type typeOf(AExpr e, TEnv tenv, UseDef useDef) {
-//   switch (e) {
-//     case ref(id(_, src = loc u)):  
-//       if (<u, loc d> <- useDef, <d, x, _, Type t> <- tenv) {
-//         return t;
-//       }
-//     // etc.
-//   }
-//   return tunknown(); 
-// }
+// by default, there are no errors
+// default set[Message] check(EnumCall _, Env _) = {};
+
+// //Checking ERROR: Use does not have a def
+// set[Message] check((EnumCall)`<ID chosenType> _;`, Env env)
+//     = { error("Undefined enum instance", chosenType.src)}
+//     when "<chosenType>" notin env;
+
+
+//Checking WARNING: Def does not have a use
+//set[Message] check((TypeDef)`enum <ID name> = [*<ID t>];`, TEnv env)
+//    = { error("Def does not have a use", name.src) | t := name }; 
+
+//Checking ERROR: Unrecognized value for the enum use
+//set[Message] check((TypeDef)`enum <ID name> = [*<ID t>];`, TEnv env)
+//    = { error("Unrecognized value for the enum use", name.src) | t := name }; 
 
 /* 
- * Pattern-based dispatch style:
- * 
- * Type typeOf(ref(id(_, src = loc u)), TEnv tenv, UseDef useDef) = t
- *   when <u, loc d> <- useDef, <d, x, _, Type t> <- tenv
- *
- * ... etc.
- * 
- * default Type typeOf(AExpr _, TEnv _, UseDef _) = tunknown();
- *
- */
+
+THINGS TO CHECK:
+*Every use is contained in the enum def
+*Every use has a def 
+*Every def has a use 
+
+*/
+
+void printEnv(Env env) {
+    for (str x <- env) {
+        println("<x>: <env[x]>");
+    }
+}
+
+void checkSnippets() {
+    start[Level] lvl = parseProject(|file:///C:/Users/dasha/Thesis/mental-maps/src/mentalmapslanguage/examples/mineAnnotated.mm|);
+    printEnv(collect(lvl));
+}
  

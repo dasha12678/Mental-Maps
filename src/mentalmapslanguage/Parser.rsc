@@ -33,11 +33,12 @@ public &T<:Tree parseProject(loc location) {
 // PARSE AND IMPLODE
 ////////////////////////////////////////////////
 
-public void parseAndImplodeProject(loc location) {
+public Level parseAndImplodeProject(loc location) {
     //println("Parse is called on: <projectFile>");
     parseTree = parse(#start[Level], location); 
     impl = implode(#AbstractPipeline, parseTree);
-    iprintln(impl);
+    //iprintln(impl);
+    return impl;
 }
 
 //////////////////////////////////////////////////	
@@ -53,6 +54,6 @@ public void parseAndImplodeProject(loc location) {
 public start[Level] LD_parse(loc file) =
   parse(#start[Level], file);
 
-loc level = |file:///C:/Users/dasha/Thesis/mental-maps/src/mentalmapslanguage/examples/mine.mm|;
+loc level = |file:///C:/Users/dasha/Thesis/mental-maps/src/mentalmapslanguage/examples/mineAnnotated.mm|;
 
 //println(prettyTree(t)); to pretty print the parse tree

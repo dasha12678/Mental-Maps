@@ -43,6 +43,10 @@ void wetest(start[Template] t) {
   }
 }
 
+//addLocation(light=dark, theme=mine)
+
+//funcCall: NAME functionName "(" {Parameter ","}* parameters")"
+
 //funcCall(NAME _,list[Parameter]_) := input
 
 // void wetestmore(start[Template] t) {

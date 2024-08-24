@@ -38,7 +38,7 @@ level mine{
         }
 
         room thePlace{ 
-            Location location North; 
+            Location location = North; 
             isGoal;
             antechamber;
             lock NaturalLock; 

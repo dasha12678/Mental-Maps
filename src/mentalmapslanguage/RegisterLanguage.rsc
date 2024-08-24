@@ -16,9 +16,7 @@ import IO;
 import ParseTree;
 
 import mentalmapslanguage::AST;
-import mentalmapslanguage::Resolve;
 import mentalmapslanguage::Check;
-import mentalmapslanguage::CST2AST;
 import mentalmapslanguage::SyntaxDefinition;
 
 set[LanguageService] MMContributions() = {
@@ -31,6 +29,7 @@ set[LanguageService] MMContributions() = {
             [ symbol("<plc>", \method(), plc.src) | /Place plc := input.top ])];
         return c;
      }),
+
      summarizer(mySummarizer
         , providesDocumentation = true
         , providesDefinitions = true
@@ -38,29 +37,15 @@ set[LanguageService] MMContributions() = {
         , providesImplementations = false)
   };
 
-str type2str(tint()) = "integer";
-str type2str(tbool()) = "boolean";
-str type2str(tstr()) = "string";
-str type2str(tunknown()) = "unknown";
-
-
 Summary mySummarizer(loc origin, start[Level] input) {
-  Level ast = cst2ast(input);
-  RefGraph g = resolve(ast);
-  TEnv tenv = collect(ast);
-  set[Message] msgs = check(ast, tenv, g.useDef);
-
-  rel[loc, Message] msgMap = {< m.at, m> | Message m <- msgs };
-  
-  rel[loc, str] docs = { <u, "Type: <type2str(t)>"> | <loc u, loc d> <- g.useDef, <d, _, _, Type t> <- tenv };
-  return summary(origin, messages = msgMap, definitions = g.useDef, documentation = docs);
+  return summary(origin, messages = {<m.at, m> | Message m <- check(input) });
 }
 
 public void main(){
 
 	registerLanguage(
 		language(
-			pathConfig(srcs=[|std:///|, |project://mental-maps/src|]), "MentalMaps", "mm", "Main", "MMContributions")
+			pathConfig(srcs=[|std:///|, |project://mental-maps/src|]), "MentalMaps", "mm", "mentalmapslanguage::RegisterLanguage", "MMContributions")
 			);
 	
 	println("IDE loaded.");
