@@ -1,0 +1,129 @@
+root feature Unexplored2Level xor { --name --addLocation --addConnection --setLocation} //Level Template 
+encounter()
+
+feature name {}
+//encounter(name=...)
+
+feature addLocation xor {--id --parent --direction --structure --features}
+//addLocation()
+
+	feature id {}
+	//addLocation(id=...)
+				
+	feature parent {}
+	//addLocation(parent=...)
+
+	feature direction {}
+	//addLocation(direction=...)
+
+	feature structure xor {--size --location --Environment --Entrance}
+	//addLocation(structure=...)
+
+		feature size {}
+		//addLocation(structure=...)
+
+		feature location {}
+		//addLocation(structure=placeIs...) placeIsNorth, placeIsWest, placeIsSouth, placeIsEast
+
+		feature Environment xor {--yesEnvironment --noEnvironment}
+		//addLocation(structure=...)
+
+			feature yesEnvironment {}
+			//addLocation(structure=buildEnvironment)
+
+			feature --noEnvironment {}
+			//addLocation(structure=noEnvironment)
+
+		feature Entrance xor {--direction}
+		//addLocation(structure=...)
+
+			feature direction {}
+			//addLocation(structure=entrance...) entranceNorth, entranceSouth, entranceWest, entranceEast
+
+	feature features xor {--RoomIsGoal --roomIsPlace --roomIsPath --roomIsRoom}
+	//addLocation(features=...)
+
+			feature RoomIsGoal {}
+			//addLocation(features=roomIsGoal)
+
+			feature roomIsPlace {}
+			//addLocation(features=roomIsPlace)
+
+			feature roomIsPath {}
+			//addLocation(features=roomIsPath)
+
+			feature roomIsRoom {}
+			//addLocation(features=roomIsRoom)
+
+feature addConnection xor {--start --end --direction}
+//addConnection()
+
+	feature start {}
+	//addConnection(start=...)
+				
+	feature end{}
+	//addConnection(end=...)
+			
+	feature direction{}
+	//addConnection(direction=...)
+
+feature setLocation xor {--id --parent --direction --structure --features}
+//addLocation()
+
+	feature id {}
+	//addLocation(id=...)
+				
+	feature parent {}
+	//addLocation(parent=...)
+
+	feature direction {}
+	//addLocation(direction=...)
+
+	feature structure xor {--size --location --Environment --Entrance --Path}
+	//addLocation(structure=...)
+
+		feature size {}
+		//addLocation(structure=...)
+
+		feature location {}
+		//addLocation(structure=placeIs...) placeIsNorth, placeIsWest, placeIsSouth, placeIsEast
+
+		feature Environment xor {--yesEnvironment --noEnvironment}
+		//addLocation(structure=...)
+
+			feature yesEnvironment {}
+			//addLocation(structure=buildEnvironment)
+
+			feature --noEnvironment {}
+			//addLocation(structure=noEnvironment)
+
+		feature Entrance xor {--direction}
+		//addLocation(structure=...)
+
+			feature direction {}
+			//addLocation(structure=entrance...) entranceNorth, entranceSouth, entranceWest, entranceEast
+
+		feature Path {--direction}
+		//addLocation(structure=...)
+
+			feature direction {}
+			//addLocation(structure=pathLeads...) pathLeadsNorth, pathLeadsWest, pathLeadsSouth, pathLeadsEast
+
+	feature features xor {--RoomIsGoal --roomIsPlace --roomIsPath --roomIsRoom}
+	//addLocation(features=...)
+
+			feature RoomIsGoal {}
+			//addLocation(features=roomIsGoal)
+
+			feature roomIsPlace {}
+			//addLocation(features=roomIsPlace)
+
+			feature roomIsPath {}
+			//addLocation(features=roomIsPath)
+
+			feature roomIsRoom {}
+			//addLocation(features=roomIsRoom)
+
+
+
+

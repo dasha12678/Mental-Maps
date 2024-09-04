@@ -1,0 +1,57 @@
+root feature Unexplored2Level xor { --name --addLocation --addConnection } //Level Template 
+//encounter()
+
+feature name {}
+//encounter(name=...)
+
+feature addLocation or {--id --parent --lightSettings --terrain --direction --themes --terainAB --terrainC --terrainDEF --structure}
+//addLocation()
+
+	feature id {}
+	//addLocation(id=...)
+				
+	feature parent {}
+	//addLocation(parent=...)
+
+	feature lightSettings {}
+	//addLocation(lightSettings=...)
+
+	feature terrain {}
+	//addLocation(terrain=...)
+
+	feature direction {}
+	//addLocation(direction=...)
+
+	feature themes {}
+	//addLocation(themes=...)
+
+	feature terrainAB {}
+	//addLocation(terrainAB=...)
+
+	feature terrainC {}
+	//addLocation(terrainC=...)
+
+	feature terrainDEF {}
+	//addLocation(terrainDEF=...)
+
+	feature structure or {--size --location}
+	//addLocation(structure=...)
+
+		feature size {}
+		//addLocation(structure=[...])
+
+		feature location {}
+		//addLocation(structure=[...])
+
+feature addConnection or {--start --end --direction}
+//addConnection()
+
+	feature start {}
+	//addConnection(start=...)
+				
+	feature end{}
+	//addConnection(end=...)
+			
+	feature direction{}
+	//addConnection(direction=...)
+

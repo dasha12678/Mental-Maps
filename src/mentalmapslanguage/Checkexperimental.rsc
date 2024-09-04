@@ -1,4 +1,4 @@
-module mentalmapslanguage::Check
+module mentalmapslanguage::Checkexperimental
 
 import IO;
 import Type;
@@ -8,19 +8,12 @@ import mentalmapslanguage::SyntaxDefinition;
 import Message; 
 import ParseTree;
 
-alias Env = map[str, list[str]];
+alias Env = map[str, list[Value]];
 
 //build an Enum Environment (Env) for a level
 //Collect all the enum definitions  - name and values it's allowed to take
-// Env collect(start[Level] level) 
-//   = ( "<name>": values | /(TypeDef) `enum <ID name> = [<{Value ","}* values>];` := level );
-
-// Env collect1(start[Level] level) {
-//   Level topLevel = level.top;
-//   return (
-//     "<name>": values | /(TypeDef) `enum <ID name> = [<{Value ","}* values>];` := topLevel
-//   );
-// }
+Env collectme(start[Level] level) 
+  = ( "<name>": values | /(TypeDef) `enum <ID name> = [<{Value ","}* values>];` := level );
 
 void wetest(start[Level] level) {
    level = \level.top;
@@ -113,9 +106,9 @@ set[Message] check(EnumCall ec, Env env)
 /* 
 
 THINGS TO CHECK:
-*Every use is contained in the enum def
-*Every use has a def 
-*Every def has a use 
+*Every enum use is contained in the enum def - error 
+*Every enum use has a def - error 
+*Every enum def has a use - warning 
 
 */
 
@@ -127,6 +120,6 @@ void printEnv(Env env) {
 
 void checkSnippets() {
     start[Level] lvl = parseProject(|file:///C:/Users/dasha/Thesis/mental-maps/src/mentalmapslanguage/examples/mineAnnotated.mm|);
-    printEnv(collect(lvl));
+    printEnv(collectme(lvl));
 }
  

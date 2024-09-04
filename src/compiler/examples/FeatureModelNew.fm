@@ -1,0 +1,83 @@
+root feature UnexploredLevel xor { --name --addLocation --addConnection --setLocation}
+
+feature name {}
+
+feature addLocation xor {--id --parent --direction --structure --features}
+
+    feature id {}
+				
+    feature parent {}
+				
+    feature direction {}
+				
+    feature structure xor {--size --location --Environment --Entrance}
+
+        feature size {}
+				
+        feature location {}
+
+        feature Environment xor {--yesEnvironment --noEnvironment}
+
+            feature yesEnvironment {}
+
+            feature noEnvironment {}
+
+        feature Entrance xor {--direction}
+
+            feature direction {}
+
+    feature features xor {--RoomIsGoal --roomIsPlace --roomIsPath --roomIsRoom}
+
+        feature RoomIsGoal {}
+
+        feature roomIsPlace {}
+
+        feature roomIsPath {}
+
+        feature roomIsRoom {}
+
+feature addConnection xor {--start --end --direction}
+
+    feature start {}
+				
+    feature end{}
+			
+    feature direction{}
+
+feature setLocation xor {--id --parent --direction --structure --features}
+
+    feature id {}
+				
+    feature parent {}
+				
+    feature direction {}
+				
+    feature structure xor {--size --location --Environment --Entrance --Path}
+
+        feature size {}
+				
+        feature location {}
+
+        feature Environment xor {--yesEnvironment --noEnvironment}
+
+            feature yesEnvironment {}
+
+            feature noEnvironment {}
+
+        feature Entrance xor {--direction}
+
+            feature direction {}
+
+        feature Path {--direction}
+
+            feature direction {}
+
+    feature features xor {--RoomIsGoal --roomIsPlace --roomIsPath --roomIsRoom}
+
+        feature RoomIsGoal {}
+
+        feature roomIsPlace {}
+
+        feature roomIsPath {}
+
+        feature roomIsRoom {}

@@ -42,3 +42,11 @@ public void parseAndImplodeProject(loc location) {
     impl = implode(#AbstractPipeline, parseTree);
     iprintln(impl);
 }
+
+public start[Template] parseProject() = 
+  parse(#start[Template], |file:///C:/Users/dasha/Thesis/mental-maps/src/mentalmapslanguage/examples/mineAnnotated.mm|);
+
+public void parseAndImplodeProject() {
+    parseTree = parseProject(); 
+    implode(#AbstractPipeline, parseTree);
+}

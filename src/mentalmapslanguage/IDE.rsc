@@ -8,7 +8,7 @@
 // @date    10-10-2021
 //
 //////////////////////////////////////////////////////////////////////////////
-module mentalmapslanguage::RegisterLanguage
+module mentalmapslanguage::IDE
 
 import util::LanguageServer;
 import util::Reflective;
@@ -45,7 +45,7 @@ public void main(){
 
 	registerLanguage(
 		language(
-			pathConfig(srcs=[|std:///|, |project://mental-maps/src|]), "MentalMaps", "mm", "mentalmapslanguage::RegisterLanguage", "MMContributions")
+			pathConfig(srcs=[|std:///|, |project://mental-maps/src|]), "MentalMaps", "mm", "mentalmapslanguage::IDE", "MMContributions")
 			);
 	
 	println("IDE loaded.");

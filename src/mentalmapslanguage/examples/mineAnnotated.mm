@@ -3,11 +3,11 @@
 
 level mine{ //name="mine"
     //Types
-    enum Variant = [a,b];
+    //enum Variant = [a,b];
     enum Theme = [cave, hazards, openGates, narrowPassages, noOpportunities, noSideTunnels, CAVEHAZARD, RARECAVEHAZARD];
     enum Terrain = [CLOSED, bedrock, sheerDown, someBushes, canyonDown, rareRocks, someRocks, grass, slopeBackUp, forest, cliffDown, VEGETATION, outside, solidRock, NOTLOW, rareBushes, sparseTrees, OPEN, dirt, slopeUp, bushes, HIGH, BUSHES, cave];
     enum LightSetting = [SemiDark, daylight, Dark];
-    enum PassageType = [placed];
+    //enum PassageType = [placed];
 
     enum Location = [North, East, South, West];
     enum Direction = [North, East, South, West, Northeast, Northwest, Southeast, Southwest];

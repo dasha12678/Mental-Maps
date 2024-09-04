@@ -25,8 +25,8 @@ lexical ID
 lexical STRING
   = @category="String" "\"" ![\n\"]* "\"";
 
-syntax TypeOfPlace
-  = @category="Place" site: "site" | room: "room" | path: "path" | entrance: "entrance" | environment: "environment";
+// syntax TypeOfPlace
+//   = @category="Place" site: "site" | room: "room" | path: "path" | entrance: "entrance" | environment: "environment";
 
 start syntax Level
   = level: "level" ID name "{" 
@@ -37,7 +37,7 @@ start syntax Level
     ;
 
 syntax Place
-= place: TypeOfPlace ID? name "{"
+= place: ID? typeOfPlace ID name "{"
   EnumCall* enumCalls
   Place* subPlaces
   "}"

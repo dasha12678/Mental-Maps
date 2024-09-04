@@ -7,7 +7,7 @@ import mentalmapslanguage::SyntaxDefinition;
 import Message; 
 import ParseTree;
 
-alias Env = map[str, list[str]];
+alias Env = map[str, list[str]]; //map of def names and the values that it takes
 
 Env collect(start[Level] level) 
 = (
@@ -41,4 +41,19 @@ set[Message] check(EnumCall ec, Env env)
     }
   when "<ec.chosenType>" notin env;
 
+ //Checking WARNING: Def does not have a use
+set[Message] check(EnumCall ec, Env env)
+  = { 
+    error("Undefined type", ec.chosenType.src)
+    }
+  when "<ec.chosenType>" notin env;
+
  
+
+ //Checking WARNING: Def does not have a use
+//set[Message] check((TypeDef)`enum <ID name> = [*<ID t>];`, TEnv env)
+//    = { error("Def does not have a use", name.src) | t := name }; 
+
+//Checking ERROR: Unrecognized value for the enum use
+//set[Message] check((TypeDef)`enum <ID name> = [*<ID t>];`, TEnv env)
+//    = { error("Unrecognized value for the enum use", name.src) | t := name }; 

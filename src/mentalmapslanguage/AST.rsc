@@ -16,12 +16,12 @@ import mentalmapslanguage::SyntaxDefinition;
 // ADT
 ////////////////////////////////////////////////
 
-data TypeOfPlace = 
-site()
-| room()
-| path()
-| entrance()
-| environment();
+// data TypeOfPlace = 
+//   site(str site)
+// | room(str room)
+// | path(str path)
+// | entrance(str entrance)
+// | environment(str environment);
 
 // data Type 
 //     = boolean(bool boolean) 
@@ -32,7 +32,7 @@ site()
 
 data Level = level(str name, list[TypeDef] typedefs, list[Place] places, list[Connection] connections);
 
-data Place = place(TypeOfPlace typeOfPlace, str name, list[EnumCall] enumCalls, list[Place] subPlaces);
+data Place = place(str typeOfPlace, str name, list[EnumCall] enumCalls, list[Place] subPlaces);
 
 data EnumCall = 
     enumCallSingle(str chosenType, str name, str chosenValue) 
