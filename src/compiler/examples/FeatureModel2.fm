@@ -55,3 +55,6 @@ feature addConnection or {--start --end --direction}
 	feature direction{}
 	//addConnection(direction=...)
 
+
+
+//output += "addlocation(features=RoomIs<capitalize(typeOfPlace)>, <x>) \n

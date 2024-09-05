@@ -30,9 +30,9 @@ import mentalmapslanguage::SyntaxDefinition;
 //     | float(real float) 
 //     | customType(str name);
 
-data Level = level(str name, list[TypeDef] typedefs, list[Place] places, list[Connection] connections);
+data Level = level(str levelName, list[TypeDef] typedefs, list[Place] places, list[Connection] connections);
 
-data Place = place(str typeOfPlace, str name, list[EnumCall] enumCalls, list[Place] subPlaces);
+data Place = place(str typeOfPlace, str placeName, list[EnumCall] enumCalls, list[Place] subPlaces);
 
 data EnumCall = 
     enumCallSingle(str chosenType, str name, str chosenValue) 

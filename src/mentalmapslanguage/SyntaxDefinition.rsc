@@ -29,7 +29,7 @@ lexical STRING
 //   = @category="Place" site: "site" | room: "room" | path: "path" | entrance: "entrance" | environment: "environment";
 
 start syntax Level
-  = level: "level" ID name "{" 
+  = level: "level" ID levelName "{" 
     TypeDef* typedefs
     Place+ places
     Connection* connections
@@ -37,7 +37,7 @@ start syntax Level
     ;
 
 syntax Place
-= place: ID? typeOfPlace ID name "{"
+= place: ID? typeOfPlace ID placeName "{"
   EnumCall* enumCalls
   Place* subPlaces
   "}"

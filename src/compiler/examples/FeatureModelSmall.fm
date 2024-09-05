@@ -1,20 +1,15 @@
 root feature UnexploredLevel xor { --name --addLocation}
 
 feature name {}
-ann: encounter(name=<name>)
 
 feature addLocation xor {--id --structure}
 
     feature id {}
-    ann: addLocation(id=<name>)
 
     feature structure xor {--size --location}
-    addLocation(structure=...)
 
         feature size {}
-        ann: <chosenValue>
 
-				
         feature location {}
-        ann: placeIs<chosenValue>
+
 
