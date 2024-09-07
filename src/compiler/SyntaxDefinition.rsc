@@ -13,14 +13,20 @@ lexical WhitespaceAndComment
 layout Layout = WhitespaceAndComment* !>> [\ \t\n\r/];
 
 lexical ID
-  = id: [a-zA-Z*#^@$%&.*+]+ !>> [a-zA-Z*#^@$%&.*+] \ Keywords;
+  = id: [a-zA-Z*#^@$%&=.*+]+ !>> [a-zA-Z*#^@$%&=.*+] \ Keywords;
 lexical String = ![\"]* ;
 
 start syntax FeatureModel
   = model: Feature*;
 
 syntax Feature
-  = feature: "root"? "feature" ID Mod "{" Edge* ExtraEdge*"}";
+  = feature: "root"? "feature" ID Mod "{" Edge* ExtraEdge*"}" Mapping Annotation;
+
+syntax Annotation
+  = annotation: "annotation:" String ("(" String ")")?;
+
+syntax Mapping
+  = mapping: "mapping:" ID;
 
 syntax Mod
   = xor: "xor" //alternative

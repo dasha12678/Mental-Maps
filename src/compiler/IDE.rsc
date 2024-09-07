@@ -9,7 +9,7 @@ import compiler::SyntaxDefinition;
 
 set[LanguageService] FMContributions() = {
     parser(Tree(str txt, loc src) {
-      return parse(#start[FeatureModel], txt, src);
+      return parse(#start[FeatureModel], txt, src, allowAmbiguity=true);
     })
 };
 
