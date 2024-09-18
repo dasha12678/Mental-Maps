@@ -1,11 +1,11 @@
 module compiler::IDE
 
 import compiler::Check;
+import compiler::Parser;
 import util::LanguageServer;
 import util::Reflective;
 import IO;
 import ParseTree;
-
 import compiler::SyntaxDefinition;
 
 set[LanguageService] FMContributions() = {
@@ -22,7 +22,7 @@ set[LanguageService] FMContributions() = {
 };
 
 Summary mySummarizer(loc origin, start[FeatureModel] input) {
-  return summary(origin, messages = {<m.at, m> | Message m <- check(input) });
+  return summary(origin, messages = {<m.at, m> | Message m <- check(FM_implode(input)) });
 }
 
 public void main(){

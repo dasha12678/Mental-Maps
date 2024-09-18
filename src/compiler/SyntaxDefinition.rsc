@@ -12,18 +12,20 @@ lexical WhitespaceAndComment
 
 layout Layout = WhitespaceAndComment* !>> [\ \t\n\r/];
 
-lexical ID
-  = id: [a-zA-Z*#^@$%&=*+]+ !>> [a-zA-Z*#^@$%&=*+] \ Keywords;
+// lexical ID
+//   = id: [a-zA-Z*#^@$%&=*+.]+ !>> [a-zA-Z*#^@$%&=*+] \ Keywords;
+
+lexical NAME
+  = name: ([a-zA-Z_$] [a-zA-Z0-9_$]+ !>> [a-zA-Z0-9_$]) \ Keywords;
 
 lexical String 
 = "\"" ![\n\"]* "\"";
-//![\"]*;
 
 start syntax FeatureModel
   = model: Feature* features;
 
 syntax Feature
-  = feature: "root"? feature "feature" QualifiedID id Mod mod "{" Edge* edges ExtraEdge* extraEdges "}" String mapping ID? newline String annotation
+  = feature: "root"? feature "feature" ID id Mod mod "{" Edge* edges ExtraEdge* extraEdges "}" String mapping NAME? newline String annotation
   ;
 
 syntax Mod
@@ -33,12 +35,9 @@ syntax Mod
   ;
 
 syntax Edge
-  = mandatory: "--." QualifiedID target
-  | optional: "--o" QualifiedID target
-  | subfeature: "--"  QualifiedID target;
-
-syntax QualifiedID
-= qualifiedID: ID parent "." ID subfeature;
+  = mandatory: "--." ID target
+  | optional: "--o" ID target
+  | subfeature: "--"  ID target;
   
 syntax ExtraEdge
 	= excludes: "-.-." ID target
@@ -46,4 +45,7 @@ syntax ExtraEdge
 	
 keyword Keywords
 	= "feature" | "root";
+
+syntax ID
+  = id: (NAME "." NAME ) name;  // Matches qualified names like `UnexploredLevel.UnexploredLevel`
 	  

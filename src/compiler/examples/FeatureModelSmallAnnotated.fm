@@ -6,8 +6,11 @@ feature UnexploredLevel.Place or {--. Place.id --. Place.structure} "Place" newl
 
     feature Place.id {} "name" "id=x"
 
-    feature Place.structure or {--. structure.size --. structure.location } "Declarations" newline "addLocation(structure=x)"
+    feature Place.structure or {--. structure.size --. structure.location --.structure.me --.UnexploredLevel.name} "Declarations" newline "addLocation(structure=x)"
 
         feature structure.size {} "declName" "x"
 
-        feature structure.location {} "declName" "PlaceIsx"
+        feature structure.location {} "declName" "PlaceIsx" 
+
+feature UnexploredLevel.enemy {} "name" "name=x"
+
