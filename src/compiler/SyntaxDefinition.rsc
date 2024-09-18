@@ -13,20 +13,18 @@ lexical WhitespaceAndComment
 layout Layout = WhitespaceAndComment* !>> [\ \t\n\r/];
 
 lexical ID
-  = id: [a-zA-Z*#^@$%&=.*+]+ !>> [a-zA-Z*#^@$%&=.*+] \ Keywords;
-lexical String = ![\"]* ;
+  = id: [a-zA-Z*#^@$%&=*+]+ !>> [a-zA-Z*#^@$%&=*+] \ Keywords;
+
+lexical String 
+= "\"" ![\n\"]* "\"";
+//![\"]*;
 
 start syntax FeatureModel
-  = model: Feature*;
+  = model: Feature* features;
 
 syntax Feature
-  = feature: "root"? "feature" ID Mod "{" Edge* ExtraEdge*"}" Mapping Annotation;
-
-syntax Annotation
-  = annotation: "annotation:" String ("(" String ")")?;
-
-syntax Mapping
-  = mapping: "mapping:" ID;
+  = feature: "root"? feature "feature" QualifiedID id Mod mod "{" Edge* edges ExtraEdge* extraEdges "}" String mapping ID? newline String annotation
+  ;
 
 syntax Mod
   = xor: "xor" //alternative
@@ -35,18 +33,17 @@ syntax Mod
   ;
 
 syntax Edge
-  = mandatory: "--." ID
-  | optional: "--o" ID
-  | subfeature: "--" ID
-  ;
+  = mandatory: "--." QualifiedID target
+  | optional: "--o" QualifiedID target
+  | subfeature: "--"  QualifiedID target;
+
+syntax QualifiedID
+= qualifiedID: ID parent "." ID subfeature;
   
 syntax ExtraEdge
-	= excludes: "-.-." ID
-	| requires: "_._." ID;
+	= excludes: "-.-." ID target
+	| requires: "_._." ID target;
 	
 keyword Keywords
-	= "RULES" | "OBJECTS" | "LEGEND" | "COLLISIONLAYERS" 
-	| "WINCONDITIONS" | "LEVELS" | "title" | "author" 
-	| "homepage" | "or" | "\<" | "\>" | "^" | "v" | "Some"
-	| "All" | "No"|"on" | "message" | "and" | "...";
+	= "feature" | "root";
 	  

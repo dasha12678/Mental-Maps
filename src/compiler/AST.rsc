@@ -4,7 +4,7 @@ data FeatureModel
   = model(list[Feature] features);
 
 data Feature
-  = feature(bool isRoot, str id, Mod modifier, list[Edge] edges, list[ExtraEdge] extraEdges)
+  = feature(bool isRoot, QualifiedID id, Mod modifier, list[Edge] edges, list[ExtraEdge] extraEdges, str mapping, str newline, str annotation)
   ;
 	
 data Mod
@@ -13,10 +13,13 @@ data Mod
   ;
   
 data Edge
-  = mandatory(str target)
-  | optional(str target)
-  | subfeature(str target)
+  = mandatory(QualifiedID target)
+  | optional(QualifiedID target)
+  | subfeature(QualifiedID target)
   ;
+
+data QualifiedID
+= qualifiedID(str parent, str subfeature);
 
 data ExtraEdge
 	= excludes(str target)

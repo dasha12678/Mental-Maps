@@ -33,36 +33,77 @@ list[tuple[str, str]] annotation = [
     <"size", "x">
     ];
 
-//Start traversing:
-//Step 1: Match Level to UnexploredLevel
-//Step 2: Extract feature UnexploredLevel
-//(Step 3: Check if its required, otherwise throw error)
-//Step 4: Extract annotation for UnexploredLevel and add it to output 
+// void traverseEdges(Feature feature, list[EnumCall] declarations){
 
-//ALTERNATIVE
-// Check if any features of UnexploredLevel are required. if yes, autofill them.
-// Then, go to the feature of that name and fill it out 
-//If any are not present, throw error. 
+//     str result = "";  // Initialize an empty string to store the final result
+//     str a = feature.annotation;
+//     bool newline = feature.newline == "true";
+
+//     for (Edge edge <- feature.edges) { 
+
+//         // Handle "mandatory" edge
+//         if (edge.relationship == "mandatory") {
+//             traverseEdges(edge.name);
+//         }
+        
+//         // Handle "optional" edge
+//         if (edge.relationship == "optional") {
+//             // Check if the edge target is in declarations
+//             if (edge.name in [decl.name | decl <- declarations]) {
+//                 traverseEdges(edge.name, );
+//             }
+//         }
+//     }
+    
+//     return result; 
+// }
+
+// str isNewLine(Edge edge, str annotation){
+
+//     str output = "";
+//     str a = feature.annotation;
+//     bool newline = feature.newline == "true";
+
+//     if (!newline){
+//         a = replaceAll(a, "x", "<annotation>") + "\n"; 
+//     }
+
+//     if(newline){
+//         str b = edge.annotation;
+//     }
+
+//     return output + "\n";
+
+// }
+
 
 //gen for level initiation
-str translator(FeatureModel fm : model(list[Feature] features), Level ast : level(name, typedefs, places, connections), list[tuple[str, str]] annotation, map[str, list[str]] mapping){
+str translator(FeatureModel fm : model(list[Feature] features), Level ast : level(name, typedefs, places, connections)){
 
     str output = "";
 
-    str initiate = head(mapping["Level"]); //UnexploredLevel
+    for (Feature feature <- features){
 
-    for (Feature feature <- features) {
-        if (feature.id == initiate){
-            // check if its required, otherwise throw error 
-           for (tuple[str, str] t <- annotation) {
-                if (t[0] == initiate){
-                    //output += replaceAll(t[1], "x", "<name>") + "\n";
-                    output += t[1] + "\n";
+        //initiate level
+        if (feature.mapping == "\"Level\""){ // TODO remove quotation from parsed mapping string
+            str a = feature.annotation;
+
+            for (Edge edge <- feature.edges){ 
+
+                //name
+                if (edge.target == "\"name\""){
+                    a = replaceAll(a, "x", "<name>") + "\n"; 
+                    output += a + "\n";
                 }
+                else {
+                    throw "You have not provided a name for the level";
+                }
+
             }
         }
     }
 
+    //places
     // for (Place place <- places) {
     //     output += translator(fm, place, annotation);  // Call the overloaded version for Place
     // }
@@ -70,53 +111,55 @@ str translator(FeatureModel fm : model(list[Feature] features), Level ast : leve
     return output;
 }
 
-
 //gen for places
-str translator(FeatureModel fm : FeatureModel, Place ast : place(typeOfPlace, name, enumCalls, subPlaces), list[tuple[str, str]] myList){
+str translator(FeatureModel fm : model(list[Feature] features), Place ast : place(typeOfPlace, name, enumCalls, subPlaces)){
 
     str output = "";
 
-    for (EnumCall enumCall <- enumCalls) {
-        str y = translator(fm, enumCall, myList);
+    for (Feature feature <- features){
+        if (feature.mapping == "\"Place\""){ 
+            str a = feature.annotation;  
+
+            //for (Edge edge <- feature.edges){ 
+            //if (edge.name == "\"name\""){
+                
+            //}
+            //}
+        }
     }
 
-    for (tuple[str, str] t <- myList) {
-        if (t[0] == "id"){
-            output += replaceAll(t[1], "x", "<name>") + "\n";
-        }
-        if(t[0] == "structure") {
-            output += replaceAll(t[1], "x", y) + "\n";
-        }
+    //search feature for place annotation
+    for (EnumCall enumCall <- enumCalls) {
+        str y = translator(fm, enumCall);
     }
 
     return output;
 }
 
 //gen for traversing enum calls
-str translator(FeatureModel fm : model(list[Feature] features), EnumCall ast : enumCallSingle(chosenType, name, chosenValue), list[tuple[str, str]] myList){
+str translator(FeatureModel fm : model(list[Feature] features), EnumCall ast){
 
     str output = "";
+
      switch(ast){	
                  case enumCallSingle(chosenType, name, chosenValue):{
                      
-                    for (tuple[str, str] t <- myList) {
-                        if (t[0] == name){
-                            output += replaceAll(t[1], "x", "<chosenValue>") + "\n";
-                        }
-                    }
+                    println();
                  }
     }  
     return output;
 }
 
-str commaSeparate(str input) {
-    // Split the input string by spaces
-    list[str] parts = split(input, " ");
 
-    str result = "";
+list[Feature] getChildren(FeatureModel fm : model(list[Feature] features)) {
+    list[Feature] children = [];
 
-    // Join the parts with commas
+    for (Feature feature <- features){
 
-    return result;
+        for (Edge edge <- feature.edges){ 
+            println(typeOf(edge.child));
+        }
+    }
+
+    return children;
 }
-

@@ -1,27 +1,13 @@
-root feature UnexploredLevel xor { --name --addLocation}
-mapping: Level
-annotation: encounter(x)
+root feature UnexploredLevel xor { --name --addLocation} "Level" "encounter(x)"
 
-feature name {}
-mapping: name
-annotation: name=x
+feature name {} "name" "name=x"
 
-feature addLocation xor {--id --structure}
-mapping: Place
-annotation: addLocation(x)
+feature addLocation xor {--id --structure} "Place" "addLocation(x)"
 
-    feature id {}
-    mapping: name
-    annotation: id=x
+    feature id {} "name" "id=x"
 
-    feature structure xor {--size --location}
-    mapping: Place
-    annotation: addLocation(x)
+    feature structure xor {--size --location} "Place" "addLocation(structure=x)"
 
-        feature size {}
-        mapping: declName
-        annotation: x
+        feature size {} "declName" "x"
 
-        feature location {}
-        mapping: declName
-        annotation: PlaceIsx
+        feature location {} "declName" "PlaceIsx"
