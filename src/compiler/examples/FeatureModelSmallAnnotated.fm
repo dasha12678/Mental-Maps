@@ -2,15 +2,19 @@ root feature UnexploredLevel.UnexploredLevel or { --. UnexploredLevel.name --. U
 
 feature UnexploredLevel.name {} "name" "name=x"
 
-feature UnexploredLevel.Place or {--. Place.id --. Place.structure} "Place" newline "addLocation(x)"
+feature UnexploredLevel.name {} "name" "name=x"
+
+feature UnexploredLevel.Enemy{} "name" "name=x"
+
+feature UnexploredLevel.Place or {--. Place.id --. Place.structure --.UnexploredLevel.structure} "Place" newline "addLocation(x)"
 
     feature Place.id {} "name" "id=x"
 
-    feature Place.structure or {--. structure.size --. structure.location --.structure.me --.UnexploredLevel.name} "Declarations" newline "addLocation(structure=x)"
+    feature Place.structure or {--. structure.size --. structure.location --. structure.location --.structure.name} "Declarations" newline "addLocation(structure=x)"
 
         feature structure.size {} "declName" "x"
 
-        feature structure.location {} "declName" "PlaceIsx" 
+        feature structure.location {} "declName" "PlaceIsx"
 
-feature UnexploredLevel.enemy {} "name" "name=x"
+
 
