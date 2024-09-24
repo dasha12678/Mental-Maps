@@ -25,7 +25,7 @@ start syntax FeatureModel
   = model: Feature* features;
 
 syntax Feature
-  = feature: "root"? feature "feature" ID id Mod mod "{" Edge* edges ExtraEdge* extraEdges "}" String mapping NAME? newline String annotation
+  = feature: "root"? feature "feature" ID id Mod mod "{" Edge* edges ExtraEdge* extraEdges "}" String? mapping NAME? newline String? annotation
   ;
 
 syntax Mod

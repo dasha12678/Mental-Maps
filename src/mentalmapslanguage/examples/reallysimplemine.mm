@@ -1,6 +1,8 @@
 level mine{
     site MainSite{
-        location = North;
-        size = small;
+        Structure structure{
+            Location location = North;
+            Size size = small;
+        }
     }
 }

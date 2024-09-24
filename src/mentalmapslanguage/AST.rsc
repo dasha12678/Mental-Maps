@@ -16,13 +16,6 @@ import mentalmapslanguage::SyntaxDefinition;
 // ADT
 ////////////////////////////////////////////////
 
-// data TypeOfPlace = 
-//   site(str site)
-// | room(str room)
-// | path(str path)
-// | entrance(str entrance)
-// | environment(str environment);
-
 // data Type 
 //     = boolean(bool boolean) 
 //     | string(str string) 
@@ -30,14 +23,14 @@ import mentalmapslanguage::SyntaxDefinition;
 //     | float(real float) 
 //     | customType(str name);
 
-data Level = level(str levelName, list[TypeDef] typedefs, list[Place] places, list[Connection] connections);
+data Level = level(str name, list[TypeDef] typedefs, list[Place] places, list[Connection] connections);
 
-data Place = place(str typeOfPlace, str placeName, list[EnumCall] enumCalls, list[Place] subPlaces);
+data Place = place(str typeOfPlace, str name, list[Declaration] declarations, list[Place] subPlaces);
 
-data EnumCall = 
-    enumCallSingle(str chosenType, str name, str chosenValue) 
-  | enumCallMultiple(str chosenType, str name, list[str] chosenValues)
-  | enumCallChoose(str chosenType, str name, str chosenValue1, str chosenValue2);
+data Declaration = 
+    declarationSingle(str chosenType, str name, str chosenValue) 
+  | declarationMultiple(str chosenType, str name, list[str] chosenValues)
+  | declarationNested(str chosenType, str name, Declaration decl);
 
 data Connection = connection(str site1, str site2, Value direction);
 
@@ -48,6 +41,6 @@ data Value =
   | intValue(int intValue)
   | floatValue(real floatValue)
   | stringValue(str stringValue)
-  | enumValue(str nameValue)
+  | declValue(str nameValue)
   | listValue(list[Value] listValues)
   | setValue(set[Value] setValues);

@@ -23,7 +23,7 @@ set[Message] check(start[Level] level)
   = { 
     *check(ec, env) 
       | Place place <- level.top.places, // match each place
-        EnumCall ec <- (place.enumCalls) // enum calls within each place
+        Declaration ec <- (place.declarations) // enum calls within each place
     }  
   when Env env := collect(level);
 
@@ -32,23 +32,22 @@ set[Message] check(start[Level] level)
 */
 
 // by default, there are no errors
-default set[Message] check(EnumCall _, Env _) = {};
+default set[Message] check(Declaration _, Env _) = {};
 
 // //Checking ERROR: Use of enum does not have a def
-set[Message] check(EnumCall ec, Env env)
+set[Message] check(Declaration decl, Env env)
   = { 
-    error("Undefined type", ec.chosenType.src)
+    error("Undefined type", decl.chosenType.src)
     }
-  when "<ec.chosenType>" notin env;
+  when "<decl.chosenType>" notin env;
 
  //Checking WARNING: Def does not have a use
-set[Message] check(EnumCall ec, Env env)
+set[Message] check(Declaration decl, Env env)
   = { 
-    error("Undefined type", ec.chosenType.src)
+    warning("Undefined type", decl.chosenType.src)
     }
-  when "<ec.chosenType>" notin env;
+  when "<decl.chosenType>" notin env;
 
- 
 
  //Checking WARNING: Def does not have a use
 //set[Message] check((TypeDef)`enum <ID name> = [*<ID t>];`, TEnv env)

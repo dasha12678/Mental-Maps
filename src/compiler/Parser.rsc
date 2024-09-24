@@ -7,10 +7,10 @@ import compiler::SyntaxDefinition;
 alias AbstractPipeline = compiler::AST::FeatureModel;
 
 public start[FeatureModel] FM_parse() = 
-  parse(#start[FeatureModel], |file:///C:/Users/dasha/Thesis/mental-maps/src/compiler/examples/FeatureModelSmallAnnotated.fm|);
+  parse(#start[FeatureModel], |file:///C:/Users/dasha/Thesis/mental-maps/src/compiler/examples/FeatureModelSmall.fm|);
 
 public start[FeatureModel] FM_parse1(){
-  parseTree = parse(#start[FeatureModel], |file:///C:/Users/dasha/Thesis/mental-maps/src/compiler/examples/FeatureModelSmallAnnotated.fm|);
+  parseTree = parse(#start[FeatureModel], |file:///C:/Users/dasha/Thesis/mental-maps/src/compiler/examples/FeatureModelSmall.fm|);
   return parseTree;
 }
 

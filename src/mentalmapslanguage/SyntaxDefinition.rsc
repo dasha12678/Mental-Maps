@@ -29,7 +29,7 @@ lexical STRING
 //   = @category="Place" site: "site" | room: "room" | path: "path" | entrance: "entrance" | environment: "environment";
 
 start syntax Level
-  = level: "level" ID levelName "{" 
+  = level: "level" ID name "{" 
     TypeDef* typedefs
     Place+ places
     Connection* connections
@@ -37,16 +37,16 @@ start syntax Level
     ;
 
 syntax Place
-= place: ID? typeOfPlace ID placeName "{"
-  EnumCall* enumCalls
+= place: ID? typeOfPlace ID name "{"
+  Declaration* declarations
   Place* subPlaces
   "}"
   ;
   
-syntax EnumCall 
-  = enumCallSingle: ID? chosenType ID name "=" ID chosenValue ";"
-  |enumCallMultiple: ID? chosenType ID name "=" "[" {ID ","}* chosenValues "]" ";"
-  > enumCallChoose: ID? chosenType ID name "=" ID chosenValue1 "or" ID chosenValue2 ";"
+syntax Declaration 
+  = declarationSingle: ID? chosenType ID name "=" ID chosenValue ";"
+  | declarationMultiple: ID? chosenType ID name "=" "[" {ID ","}* chosenValues "]" ";"
+  > declarationChoose: ID? chosenType ID name "=" ID chosenValue1 "or" ID chosenValue2 ";"
   ;
 
 syntax Connection 
@@ -70,7 +70,7 @@ syntax Value
     | intValue: INTEGER intValue
     | floatValue: FLOAT floatValue
     | stringValue: STRING stringValue
-    | enumValue: ID nameValue //enum value, no lookup
+    | declValue: ID nameValue //enum value, no lookup
     | listValue: "[" {Value ","}* listValues "]"
     | setValue:"{" {Value ","}* setValues "}"
     ;
