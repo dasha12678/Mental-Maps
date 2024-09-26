@@ -4,7 +4,7 @@ data FeatureModel
   = model(list[Feature] features);
 
 data Feature
-  = feature(bool isRoot, ID id, Mod modifier, list[Edge] edges, list[ExtraEdge] extraEdges, str mapping, str newline, str annotation, loc src =  |unknown:///|)
+  = feature(str typeOf, ID id, Mod modifier, list[Edge] edges, list[ExtraEdge] extraEdges, str mapping, str newline, str annotation, loc src =  |unknown:///|)
   ;
 	
 data Mod

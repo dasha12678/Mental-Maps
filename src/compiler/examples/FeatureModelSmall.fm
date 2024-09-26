@@ -2,7 +2,7 @@ root feature UnexploredLevel.UnexploredLevel or { --. UnexploredLevel.name --. U
 
 feature UnexploredLevel.name {}
 
-feature UnexploredLevel.Place or {--. Place.id --. Place.structure } 
+place feature UnexploredLevel.Place or {--. Place.id --. Place.structure } 
 
     feature Place.id {} 
 

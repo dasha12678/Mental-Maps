@@ -24,8 +24,15 @@ lexical String
 start syntax FeatureModel
   = model: Feature* features;
 
+start syntax FeatureType
+  = root: "root"
+  | place: "place" 
+  | connection: "connection" 
+  | other:       //empty alternative
+  ;
+
 syntax Feature
-  = feature: "root"? feature "feature" ID id Mod mod "{" Edge* edges ExtraEdge* extraEdges "}" String? mapping NAME? newline String? annotation
+  = feature: FeatureType typeOf "feature" ID id Mod mod "{" Edge* edges ExtraEdge* extraEdges "}" String? mapping NAME? newline String? annotation
   ;
 
 syntax Mod
@@ -44,8 +51,8 @@ syntax ExtraEdge
 	| requires: "_._." ID target;
 	
 keyword Keywords
-	= "feature" | "root";
+	= "feature" | "root" | "place" | "connection";
 
 syntax ID
-  = id: (NAME "." NAME ) name;  // Matches qualified names like `UnexploredLevel.UnexploredLevel`
+  = id: (NAME qualifier "." NAME identifier) name;  // Matches qualified names like `UnexploredLevel.UnexploredLevel`
 	  

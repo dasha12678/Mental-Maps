@@ -12,15 +12,15 @@ import List;
 //     return level;
 // }
 
-str annoUnexploredLevel (str name, list[str] places){
-  return "encounter(name=<name>)" + "\n" + "<places>";
+str annoLevel (str name, list[str] places){
+  return "encounter(name=<name>)" + "\n" + "<places>" + "\n";
 }
 
 // str annoUnexploredLevelName (str name){
 //     return "encounter(name=<name>)" + "\n";
 // }
 
-str annoUnexploredLevelPlace (str name, list[str] declarations){  
+str annoPlace (str name, list[str] declarations){  
 	return "addLocation(name=<name>)" + "\n" +
    "addLocation(structure=<intercalate("|", declarations)>)" + "\n";
 }
@@ -29,11 +29,11 @@ str annoUnexploredLevelPlace (str name, list[str] declarations){
 //     return "addLocation(structure=<intercalate("|", parameters)>)" + "\n"; 
 // }
 
-str annoStructureSize (str chosenValue){ 
+str annoSize (str chosenValue){ 
   return "<chosenValue>";
 }
 
-str annoStructureLocation (str chosenValue){ 
+str annoLocation (str chosenValue){ 
   return "PlaceIs<chosenValue>";
 }
 
