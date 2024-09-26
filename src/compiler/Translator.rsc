@@ -4,6 +4,7 @@ import IO;
 import String;
 import ParseTree;
 import List;
+import Type;
 
 import compiler::AST;
 import compiler::Parser;
@@ -15,63 +16,44 @@ import mentalmapslanguage::Parser;
 //fm = FM_parse_implode();
 //ast = parseAndImplodeProject(|file:///C:/Users/dasha/Thesis/mental-maps/src/mentalmapslanguage/examples/reallysimplemine.mm|);
 
-alias Mapping = tuple[str feature, str (&T) annotation];
-
-Mapping level = <"UnexploredLevel", annoUnexploredLevel>;
-Mapping levelName = <"level.name", annoUnexploredLevelName>;
-
-map[str, list[Mapping]] mapping = (
-//    "Level"       : [<"UnexploredLevel", annoUnexploredLevel>],
-    "Level.name"  : [<"level.name", annoUnexploredLevelName>],
-    // "Place"      : [<"place", annoUnexploredLevelPlace>, <"structure", annoPlaceStructure>],
-    "Place.name"  : [<"place.name", annoPlaceName>],
-    "Declaration" : [<"size", annoStructureSize>, <"location", annoStructureLocation>]
-);
-
-//gen for level initiation
-str generator(Level ast, map[str, list[Mapping]] mapping){
-
-    list[str] annoDecl = [];
-    str annoPlace = "";
-    str annoLevel = "";
-
-    bottom-up visit (ast) {
-        case Declaration decl : annoDecl += translator(decl, mapping);
-        case Place place : annoPlace += translator(place, annoDecl);
-        case Level level : annoLevel += translator(level, annoPlace);
-    }
-    return annoLevel;
+str genLevel(str functionName, str levelName, list[str] places){
+    return "
+    str anno<functionName>(str <levelName>, list[str] <places>){
+        return //place your annotation here";
 }
 
-//gen for places
-str translator(Place ast : place(typeOfPlace, name, enumCalls, subPlaces), list[str] an){
-
-    str name = annoPlaceName(name);
-    str structure = annoPlaceStructure(an);
-
-return annoUnexploredLevelPlace(name, structure);
-
+str genDecl(str functionName, str chosenValue){
+    return "
+    str anno<functionName>(str <chosenValue>){
+        return //place your annotation here";
 }
 
-//gen for declarations
-str translator(Declaration decl, map[str, list[Mapping]] mapping){
-
-str annoDecl = "";
-
-    for (mappingTuple <- mapping["Declaration"]) {
-        if (decl.name == "<mappingTuple.feature>"){
-            annoDecl += mappingTuple.annotation(decl.chosenValue); 
-        }
-    }
-
-return annoDecl;
+str genPlace(str functionName, str placeName, list[str] declarations){
+    return "
+    str anno<functionName>(str <placeName>, list[str] <declarations>){
+        return //place your annotation here";
 }
 
-str translator (level(name, typedefs, places, connections), str annoPlace){
 
-    str name = annoUnexploredLevelName(name);
+str biGgen(){
 
-    return annoUnexploredLevel(name, annoPlace);
+return "
+
+str translator(Place place){
+    list[str] annoDecls = [translator(decl) | Declaration decl <- place.declarations];
+    return genPlace("place", place.name, annoDecls); 
+}
+
+str translator(Declaration decl){
+    return genDecl(decl.name, decl.chosenValue);
+}
+
+str translator (Level level){
+    list[str] annoPlaces = [translator(place) | Place place <- level.places];
+    return genLevel("level", level.name, annoPlaces);
+}
+
+"
 }
 
 
