@@ -1,13 +1,15 @@
 module compiler::Functions
+import List;
+import util::Eval;
 
     str UnexploredLevel(list[str] places){
-        return "//place your annotation here";}
+        return "<places>";}
 
     str name(str chosenValue){
         return "//place your annotation here";}
 
     str Place(list[str] declarations){
-        return "//place your annotation here";}
+        return "addLocation(structure=<intercalate("|", declarations)>)" + "\n";}
 
     str id(str chosenValue){
         return "//place your annotation here";}
@@ -16,7 +18,7 @@ module compiler::Functions
         return "//place your annotation here";}
 
     str size(str chosenValue){
-        return "//place your annotation here";}
+        return "<chosenValue>";}
 
     str location(str chosenValue){
-        return "//place your annotation here";}
+        return "PlaceIs<chosenValue>";}
