@@ -1,20 +1,7 @@
 module compiler::Build
 
 import IO;
-import String;
-import ParseTree;
-import List;
-import Type;
-
-import compiler::AST;
-import compiler::Parser;
-import compiler::Function2;
-
-import mentalmapslanguage::AST;
-import mentalmapslanguage::Parser;
-
-//fm = FM_parse_implode();
-//ast = parseAndImplodeProject(|file:///C:/Users/dasha/Thesis/mental-maps/src/mentalmapslanguage/examples/reallysimplemine.mm|);
+import featuremodellang::AST;
 
 //BUILD
 void traverseFM(FeatureModel fm) { 

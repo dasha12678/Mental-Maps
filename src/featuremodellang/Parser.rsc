@@ -1,10 +1,10 @@
-module compiler::Parser
+module featuremodellang::Parser
 
 import ParseTree;
-import compiler::AST;
-import compiler::SyntaxDefinition;
+import featuremodellang::AST;
+import featuremodellang::SyntaxDefinition;
 
-alias AbstractPipeline = compiler::AST::FeatureModel;
+alias AbstractPipeline = featuremodellang::AST::FeatureModel;
 
 public start[FeatureModel] FM_parse() = 
   parse(#start[FeatureModel], |file:///C:/Users/dasha/Thesis/mental-maps/src/compiler/examples/FeatureModelSmall.fm|);

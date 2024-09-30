@@ -1,4 +1,4 @@
-module compiler::AST
+module featuremodellang::AST
 
 data FeatureModel
   = model(list[Feature] features);

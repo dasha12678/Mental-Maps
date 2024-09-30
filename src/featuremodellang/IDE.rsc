@@ -1,12 +1,12 @@
-module compiler::IDE
+module featuremodellang::IDE
 
-import compiler::Check;
-import compiler::Parser;
+import featuremodellang::Check;
+import featuremodellang::Parser;
 import util::LanguageServer;
 import util::Reflective;
 import IO;
 import ParseTree;
-import compiler::SyntaxDefinition;
+import featuremodellang::SyntaxDefinition;
 
 set[LanguageService] FMContributions() = {
 

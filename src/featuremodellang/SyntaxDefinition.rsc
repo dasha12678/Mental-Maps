@@ -1,4 +1,4 @@
-module compiler::SyntaxDefinition
+module featuremodellang::SyntaxDefinition
 
 //multiplicity
 //mandatory, optional 

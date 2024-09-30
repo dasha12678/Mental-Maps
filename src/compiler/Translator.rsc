@@ -6,8 +6,8 @@ import ParseTree;
 import List;
 import Type;
 
-import compiler::AST;
-import compiler::Parser;
+import featuremodellang::AST;
+import featuremodellang::Parser;
 import compiler::Functions;
 import compiler::Generator;
 import compiler::Util;
@@ -25,7 +25,7 @@ loc myFile = |file:///C:/Users/dasha/Thesis/mental-maps/src/mentalmapslanguage/e
 void preGenerator() { 
     generateCode(); 
 }
-
+ 
 //RUN GENERATOR
 str Generator() { 
     Level level = parseAndImplodeProject(myFile);

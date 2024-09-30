@@ -1,10 +1,10 @@
-module compiler::Check
+module featuremodellang::Check
 
 import IO;
 import Type;
-import compiler::Parser;
+import featuremodellang::Parser;
 //import compiler::SyntaxDefinition;
-import compiler::AST;
+import featuremodellang::AST;
 import Message; 
 import ParseTree;
 import Set;
