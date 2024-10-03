@@ -10,7 +10,7 @@ layout Layout = WhitespaceAndComment* !>> [\ \t\n\r/];
 lexical BOOLEAN
 	= @category="Boolean" "true" | "false";
 
-keyword Keywords = "enum" | "if" | "true" | "false" | "from" | "to" | "or" | "and";
+keyword Keywords = "enum" | "struct" | "if" | "true" | "false" | "from" | "to" | "or" | "and";
 
 lexical INTEGER
   = @category="Integer" [\-]? [0-9]+ !>> [0-9];
@@ -25,21 +25,20 @@ lexical ID
 lexical STRING
   = @category="String" "\"" ![\n\"]* "\"";
 
-// syntax TypeOfPlace
-//   = @category="Place" site: "site" | room: "room" | path: "path" | entrance: "entrance" | environment: "environment";
-
 start syntax Level
-  = level: "level" ID name "{" 
-    TypeDef* typedefs
-    Place+ places
-    Connection* connections
-    "}"
-    ;
-
-syntax Place
-= place: ID? typeOfPlace ID name "{"
+  = level: "typedefs" "{"
+  TypeDef* typedefs
+  "}"
+  ID name "{" 
   Declaration* declarations
-  Place* subPlaces
+  Struct+ structs
+  Connection* connections
+  "}"
+  ;
+syntax Struct
+= struct: ID name "{"
+  Declaration* declarations
+  Struct* subStructs
   "}"
   ;
   
@@ -50,27 +49,47 @@ syntax Declaration
   ;
 
 syntax Connection 
-  = connection: "connection" "from" ID place1 "to" ID place2 "in" "direction" Value direction
+  = connection: "connection" "{"
+  Declaration* declarations
+  "}"
   ;
-
-// syntax Type
-//     = boolean: "bool"
-//     | string: "string"
-//     | integer: "int"
-//     | float: "float"
-//     | customType: ID
-//     ;
-
-syntax TypeDef
-    = typedef: "enum" ID name "=" "[" {Value ","}* values "]" ";"
+syntax CollectionType
+  	= lists: "list"
+    | sets: "set"
     ;
 
+syntax BasicType
+    = boolean: "bool"
+    | string: "str"
+    | integer: "int"
+    | float: "float"
+    ;
+
+syntax TypeDef
+    = // basic: Mod mod BasicType basicType ID name ";" //basic - bool, str, int, float
+    | enum: Mod mod "enum" ID name "{" {Value ","}* values "}" ";" //enums
+    | struct: Annotation anno Mod mod "struct" ID name "{" {ID ","}* members "}" //structs
+    | collections: Mod mod CollectionType collectionType "[" ID typeParam "]" ID name ";" // lists, sets
+    ;
+
+syntax Mod //variability
+  = optional: "opt" 
+  | required:  //if its empty, it is required
+  | or: "or" 
+  | xor: "xor" 
+  ;
+
+syntax Annotation 
+  = root: "root" 
+  | place: "place"
+  | other: //empty alternative
+  ;
 syntax Value
     = boolValue: BOOLEAN boolValue
     | intValue: INTEGER intValue
     | floatValue: FLOAT floatValue
     | stringValue: STRING stringValue
-    | declValue: ID nameValue //enum value, no lookup
+    | declValue: ID declValue //enum value, no lookup
     | listValue: "[" {Value ","}* listValues "]"
     | setValue:"{" {Value ","}* setValues "}"
     ;

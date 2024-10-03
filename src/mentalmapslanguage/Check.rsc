@@ -15,17 +15,23 @@ Env collect(start[Level] level)
   );
 
 /*
- * Checking level templates
- EnumCalls are stored in places
+ * Checking level
  */
 
-set[Message] check(start[Level] level)
-  = { 
-    *check(ec, env) 
-      | Place place <- level.top.places, // match each place
-        Declaration ec <- (place.declarations) // enum calls within each place
-    }  
-  when Env env := collect(level);
+set[Message] check(start[Level] level){
+  set[Message] messages = {};
+
+  for (Env env := collect(fm)[0]){
+  messages += {
+    *{*check(decl, env) | Struct struct <- level.top.places},
+    *{*check(decl, env) | Declaration ec <- (place.declarations)}
+  };
+
+  messages += collect(level);
+  }
+
+return messages;
+}
 
 /*
  * Checking enum calls
