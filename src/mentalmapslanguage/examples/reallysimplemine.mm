@@ -1,4 +1,4 @@
-typedefs{
+typedefs {
     //ENUMS//
     enum TypeOf {site, room, path, entrance, environment};
     enum Size {small, medium, large};
@@ -11,11 +11,10 @@ typedefs{
     //STRUCTS//
     root struct level {
         str name;
-        Place place xor 
-        Enemy enemy; 
+        Place place xor Enemy enemy;
     }
 
-    place struct Place{
+    struct Place{
         str name;
         TypeOf typeOf;
         Structure structure;
@@ -27,19 +26,19 @@ typedefs{
     }
 }
 
-level(Variant variant){
-    name = "mine"; 
+level {
+    name = "mine";
     place{
         typeOf = site;
         name = "MainSite";
         structure{
+            variantSize = [small, large];
             if (variant == a){
-                location = PlaceIsNorth;
+                location = PlaceIsNoth;
             }
             else{
-                location = PlaceIsSouth;
+                location = PlaceIsNorth;
             }
-            variantSize = [small, large];
         }
     }
 }

@@ -54,6 +54,6 @@ public Level parseAndImplodeProject(loc location) {
 public start[Level] LD_parse(loc file) =
   parse(#start[Level], file);
 
-loc level = |file:///C:/Users/dasha/Thesis/mental-maps/src/mentalmapslanguage/examples/mineAnnotated.mm|;
+loc level = |file:///C:/Users/dasha/Thesis/mental-maps/src/mentalmapslanguage/examples/reallysimplemine.mm|;
 
 //println(prettyTree(t)); to pretty print the parse tree

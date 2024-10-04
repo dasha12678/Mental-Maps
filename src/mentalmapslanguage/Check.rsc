@@ -9,10 +9,20 @@ import ParseTree;
 
 alias Env = map[str, list[str]]; //map of def names and the values that it takes
 
-Env collect(start[Level] level) 
-= (
-  "<typedef.name>" : ["<v>" | Value v <- (typedef.values)] |  TypeDef typedef <- level.top.typedefs
-  );
+Env collect(start[Level] level) {
+  Env env = ();
+
+  visit(level){
+
+    case (TypeDef) `<Mod _> <Type _> <ID name> {<{Value ","}* values>} ;`: //enum
+      env += ("<name>": values);
+
+    // case (TypeDef) `<Mod _> <Type _> [<ID idtype>] <ID name>;`: //collection
+    //   println("Im here");
+  }
+
+  return env;
+}
 
 /*
  * Checking level

@@ -10,7 +10,8 @@ layout Layout = WhitespaceAndComment* !>> [\ \t\n\r/];
 lexical BOOLEAN
 	= @category="Boolean" "true" | "false";
 
-keyword Keywords = "enum" | "struct" | "if" | "true" | "false" | "from" | "to" | "or" | "and";
+keyword Keywords = "enum" | "struct" | "if" | "else" | "true" | "false" 
+| "from" | "to" | "or" | "and" | "bool" | "str" | "int" | "float";
 
 lexical INTEGER
   = @category="Integer" [\-]? [0-9]+ !>> [0-9];
@@ -31,45 +32,36 @@ start syntax Level
   "}"
   ID name "{" 
   Declaration* declarations
-  Struct+ structs
-  Connection* connections
   "}"
-  ;
-syntax Struct
-= struct: ID name "{"
-  Declaration* declarations
-  Struct* subStructs
-  "}"
-  ;
+    ;
   
-syntax Declaration 
-  = declarationSingle: ID? chosenType ID name "=" ID chosenValue ";"
-  | declarationMultiple: ID? chosenType ID name "=" "[" {ID ","}* chosenValues "]" ";"
-  > declarationChoose: ID? chosenType ID name "=" ID chosenValue1 "or" ID chosenValue2 ";"
-  ;
-
-syntax Connection 
-  = connection: "connection" "{"
-  Declaration* declarations
-  "}"
-  ;
-syntax CollectionType
-  	= lists: "list"
-    | sets: "set"
-    ;
-
-syntax BasicType
-    = boolean: "bool"
-    | string: "str"
-    | integer: "int"
-    | float: "float"
-    ;
-
 syntax TypeDef
-    = // basic: Mod mod BasicType basicType ID name ";" //basic - bool, str, int, float
-    | enum: Mod mod "enum" ID name "{" {Value ","}* values "}" ";" //enums
-    | struct: Annotation anno Mod mod "struct" ID name "{" {ID ","}* members "}" //structs
-    | collections: Mod mod CollectionType collectionType "[" ID typeParam "]" ID name ";" // lists, sets
+    = enum: Mod modif "enum" ID name "{" {Value ","}* values "}" ";" //enums
+    | struct: "root"? Mod modif "struct" ID name "{" Member* members "}" //structs
+    | listDef: Mod modif "list" "[" ID idtype "]" ID name ";" // lists  
+    | setDef: Mod modif "set" "[" ID idtype "]" ID name ";" // sets
+    | boolDef: Mod modif "bool" ID name  ";" // bools
+    | intDef: Mod modif "int" ID name ";" // ints
+    | floatDef: Mod modif "float" ID name ";" // floats
+    | strDef: Mod modif "str" ID name ";" // strings
+    ;
+
+syntax Declaration 
+  = decl: ID name "=" Value chosenValue ";"
+  | declList: ID name "=" "[" {Value ","}* listValues "]" ";"
+  | declSet: ID name "=" "{" {Value ","}* setValues "}" ";"
+  | declStruct: ID name "{" Declaration* declarations"}"
+  | ifElse: "if" "(" ID variable "==" Value myValue ")" "{" Declaration* declsIf "}" "else" "{" Declaration* declsElse "}" 
+    ;
+
+syntax MemberDecl
+  = init: Mod modif ID typeCustom ID name //initialize struct, enum, collection
+  | defBasic: Mod modif ID typeOf ID name //basic typedef
+  ;
+
+syntax Member
+  = initMember: MemberDecl member ";"
+  | initXor: MemberDecl mmbr1 "xor" MemberDecl mmbr2 ";" //xor 
     ;
 
 syntax Mod //variability
@@ -78,18 +70,13 @@ syntax Mod //variability
   | or: "or" 
   | xor: "xor" 
   ;
-
-syntax Annotation 
-  = root: "root" 
-  | place: "place"
-  | other: //empty alternative
-  ;
 syntax Value
     = boolValue: BOOLEAN boolValue
     | intValue: INTEGER intValue
     | floatValue: FLOAT floatValue
     | stringValue: STRING stringValue
-    | declValue: ID declValue //enum value, no lookup
-    | listValue: "[" {Value ","}* listValues "]"
-    | setValue:"{" {Value ","}* setValues "}"
+    | declValue: ID nameValue //enum value, no lookup
     ;
+
+
+  
