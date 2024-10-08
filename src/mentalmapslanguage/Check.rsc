@@ -2,73 +2,73 @@ module mentalmapslanguage::Check
 
 import IO;
 import Type;
+import Map;
 import mentalmapslanguage::Parser;
-import mentalmapslanguage::SyntaxDefinition;
+import mentalmapslanguage::AST;
 import Message; 
 import ParseTree;
 
-alias Env = map[str, list[str]]; //map of def names and the values that it takes
+alias Env = map[str, TypeDef]; 
 
-Env collect(start[Level] level) {
+Env collect(Level level){
   Env env = ();
-
   visit(level){
-
-    case (TypeDef) `<Mod _> <Type _> <ID name> {<{Value ","}* values>} ;`: //enum
-      env += ("<name>": values);
-
-    // case (TypeDef) `<Mod _> <Type _> [<ID idtype>] <ID name>;`: //collection
-    //   println("Im here");
+    case TypeDef typedef: env["<typedef.name.name>"] = typedef; 
   }
-
+  println(domain(env));
   return env;
 }
 
-/*
- * Checking level
- */
-
-set[Message] check(start[Level] level){
+set[Message] check(Level level){
   set[Message] messages = {};
 
-  for (Env env := collect(fm)[0]){
-  messages += {
-    *{*check(decl, env) | Struct struct <- level.top.places},
-    *{*check(decl, env) | Declaration ec <- (place.declarations)}
-  };
+    messages += {
+    *{*check(decl, collect(level)) | Declaration decl <- level.declarations},
+    *{*check(typedef, collect(level)) | TypeDef typedef <- level.typedefs}
+    };
 
-  messages += collect(level);
-  }
-
-return messages;
+  return messages;
 }
-
-/*
- * Checking enum calls
-*/
 
 // by default, there are no errors
 default set[Message] check(Declaration _, Env _) = {};
 
-// //Checking ERROR: Use of enum does not have a def
+// //Checking ERROR: Use of custom type does not have a def
 set[Message] check(Declaration decl, Env env)
-  = { 
-    error("Undefined type", decl.chosenType.src)
-    }
-  when "<decl.chosenType>" notin env;
+  = { error("Undefined type", decl.name.src) }
+  when "<decl.name.name>" notin env;
 
  //Checking WARNING: Def does not have a use
-set[Message] check(Declaration decl, Env env)
-  = { 
-    warning("Undefined type", decl.chosenType.src)
+set[Message] check(TypeDef typedef, Env env) {
+  set[Message] messages = {};
+
+  // if ("<decl.name.name>" notin env) { 
+  //   messages += { warning("Unused type", typedef.name.src) };
+  // }
+
+visit (typedef) {
+  case MemberDecl member: 
+    switch (member) {
+      case memberDecl(_, typeOf, _): {
+        if ("<typeOf.name>" notin domain(env)) { 
+          messages += { error("Undefined type", typeOf.src) }; 
+        }
+      }
     }
-  when "<decl.chosenType>" notin env;
+}
+  return messages;
+}
+
+void wetest(Level level){
+  visit (level) {
+  case MemberDecl member: 
+    switch (member) {
+      case memberDecl(_, typeOf, _): {
+        println("<typeOf>");
+      }
+    }
+}
+}
 
 
- //Checking WARNING: Def does not have a use
-//set[Message] check((TypeDef)`enum <ID name> = [*<ID t>];`, TEnv env)
-//    = { error("Def does not have a use", name.src) | t := name }; 
 
-//Checking ERROR: Unrecognized value for the enum use
-//set[Message] check((TypeDef)`enum <ID name> = [*<ID t>];`, TEnv env)
-//    = { error("Unrecognized value for the enum use", name.src) | t := name }; 

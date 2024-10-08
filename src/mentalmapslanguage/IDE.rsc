@@ -15,9 +15,9 @@ import util::Reflective;
 import IO;
 import ParseTree;
 
-import mentalmapslanguage::AST;
 import mentalmapslanguage::Check;
 import mentalmapslanguage::SyntaxDefinition;
+import mentalmapslanguage::AST;
 
 set[LanguageService] MMContributions() = {
     parser(Tree(str txt, loc src) {
@@ -26,7 +26,7 @@ set[LanguageService] MMContributions() = {
       
      outliner(list[DocumentSymbol] (start[Level] input) {
         c = [symbol("<input.src.path>", DocumentSymbolKind::\file(), input.src, children=
-            [ symbol("<plc>", \method(), plc.src) | /Place plc := input.top ])];
+            [ symbol("<typedef>", \method(), typedef.src) | /TypeDef typedef := input.top ])];
         return c;
      }),
 
@@ -35,10 +35,11 @@ set[LanguageService] MMContributions() = {
         , providesDefinitions = true
         , providesReferences = false
         , providesImplementations = false)
-  };
+ };
 
 Summary mySummarizer(loc origin, start[Level] input) {
-  return summary(origin, messages = {<m.at, m> | Message m <- check(input) });
+  imploded = implode(#Level, input);
+  return summary(origin, messages = {<m.at, m> | Message m <- check(imploded) });
 }
 
 public void main(){

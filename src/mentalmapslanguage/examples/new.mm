@@ -15,24 +15,23 @@ typedefs {
     };
 
     struct Place {
-        str name;
-        Me mine;
+        Name name;
         TypeOf typeOf;
         Structure structure;
     };
 
-    struct Structure {
+    struct Structure{
         VariantSize variantSize;
         opt Location location;
     };
 }
 
-Level {
+level {
     name = "mine";
-    place {
+    place{
         typeOf = site;
         name = "MainSite";
-        Structure {
+        Structure{
             variantSize = [small, large];
             if (variant == a){
                 location = PlaceIsNoth;

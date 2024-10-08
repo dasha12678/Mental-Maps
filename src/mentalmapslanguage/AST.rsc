@@ -16,17 +16,6 @@ import mentalmapslanguage::SyntaxDefinition;
 // ADT
 ////////////////////////////////////////////////
 
-data Type 
-  = boolean(bool boolean, loc src = |unknown:///|) 
-  | string(str string, loc src = |unknown:///|) 
-  | integer(int integer, loc src = |unknown:///|) 
-  | float(real float, loc src = |unknown:///|) 
-  | lists(list[Type] myList, loc src = |unknown:///|)
-  | sets(set[Type] mySet, loc src = |unknown:///|)
-  | enum(str enum, loc src = |unknown:///|)
-  | struct(str struct, loc src = |unknown:///|)
-  ;
-
 data Value = 
     boolValue(bool boolValue, loc src = |unknown:///|)
   | intValue(int intValue, loc src = |unknown:///|)
@@ -41,17 +30,22 @@ data Level = level(list[TypeDef] typedefs, ID name, list[Declaration] declaratio
 data TypeDef
   = enumDef(Mod modif, ID name, list[Value] values, loc src = |unknown:///|)
   | structDef(bool isRoot, Mod modif, ID name, list[Member] members, loc src = |unknown:///|) 
-  | listDef(Mod modif, ID idtype, ID name, loc src = |unknown:///|)
-  | setDef(Mod modif, ID idtype, ID name, loc src = |unknown:///|)
-  | boolDef(Mod modif, ID name)
-  | intDef(Mod modif, ID name) 
-  | floatDef(Mod modif, ID name) 
-  | strDef(Mod modif, ID name) 
+  | listDef(Mod modif, Value typeOf, ID name, loc src = |unknown:///|)
+  | setDef(Mod modif, Value typeOf, ID name, loc src = |unknown:///|)
+  | boolDef(Mod modif, ID name, loc src = |unknown:///|)
+  | intDef(Mod modif, ID name, loc src = |unknown:///|) 
+  | floatDef(Mod modif, ID name, loc src = |unknown:///|) 
+  | strDef(Mod modif, ID name, loc src = |unknown:///|) 
   ;
 
   data MemberDecl
-  = init(Mod modif, ID typeCustom, ID name, loc src = |unknown:///|)
-  | defBasic(Mod modif, Type typeOf, ID name, loc src = |unknown:///|)
+  = memberDecl(Mod modif, ID typeOf, ID name, loc src = |unknown:///|)
+  | typeDef(TypeDef typedef, loc src = |unknown:///|) 
+  ;
+
+  data Member
+  = initMember(MemberDecl member, loc src = |unknown:///|)
+  | initXor(MemberDecl mmbr1, MemberDecl mmbr2, loc src = |unknown:///|) 
   ;
 
 data Declaration 
@@ -62,19 +56,12 @@ data Declaration
   | ifElse(ID variable, Value myValue, list[Declaration] declsIf, list[Declaration] declsElse, loc src = |unknown:///|) 
   ;
 
-data Member
-  = initMember(MemberDecl member, loc src = |unknown:///|)
-  | initXor(MemberDecl mmbr1, MemberDecl mmbr2, loc src = |unknown:///|) 
-  ;
-
 data Mod
-  = optional(loc src = |unknown:///|) 
-  | required(loc src = |unknown:///|)
-  | or(loc src = |unknown:///|)
-  | xor(loc src = |unknown:///|)
+  = optional() 
+  | required()
+  | or()
+  | xor()
   ;
 
 data ID
   = id(str name, loc src = |unknown:///|);
-
-

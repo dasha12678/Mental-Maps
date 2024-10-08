@@ -10,8 +10,8 @@ layout Layout = WhitespaceAndComment* !>> [\ \t\n\r/];
 lexical BOOLEAN
 	= @category="Boolean" "true" | "false";
 
-keyword Keywords = "enum" | "struct" | "if" | "else" | "true" | "false" 
-| "from" | "to" | "or" | "and" | "bool" | "str" | "int" | "float";
+keyword Keywords = "if" | "else" | "true" | "false" 
+| "from" | "to" | "or" | "and" | "enum" | "struct" | "str" | "bool" | "int" | "float" | "list" | "set" | "typedefs";
 
 lexical INTEGER
   = @category="Integer" [\-]? [0-9]+ !>> [0-9];
@@ -28,7 +28,7 @@ lexical STRING
 
 start syntax Level
   = level: "typedefs" "{"
-  TypeDef* typedefs
+  (TypeDef ";")* typedefs
   "}"
   ID name "{" 
   Declaration* declarations
@@ -36,27 +36,27 @@ start syntax Level
     ;
   
 syntax TypeDef
-    = enum: Mod modif "enum" ID name "{" {Value ","}* values "}" ";" //enums
-    | struct: "root"? Mod modif "struct" ID name "{" Member* members "}" //structs
-    | listDef: Mod modif "list" "[" ID idtype "]" ID name ";" // lists  
-    | setDef: Mod modif "set" "[" ID idtype "]" ID name ";" // sets
-    | boolDef: Mod modif "bool" ID name  ";" // bools
-    | intDef: Mod modif "int" ID name ";" // ints
-    | floatDef: Mod modif "float" ID name ";" // floats
-    | strDef: Mod modif "str" ID name ";" // strings
+    = enumDef: Mod modif "enum" ID name "{" {Value ","}* values "}" //enums
+    | structDef: "root"? Mod modif "struct" ID name "{" Member* members "}" //structs
+    | listDef: Mod modif "list" "[" Value typeOf "]" ID name  // lists  
+    | setDef: Mod modif "set" "[" Value typeOf "]" ID name  // sets
+    | boolDef: Mod modif "bool" ID name   // bools
+    | intDef: Mod modif "int" ID name  // ints
+    | floatDef: Mod modif "float" ID name  // floats
+    | strDef: Mod modif "str" ID name  // strings
     ;
 
 syntax Declaration 
   = decl: ID name "=" Value chosenValue ";"
   | declList: ID name "=" "[" {Value ","}* listValues "]" ";"
   | declSet: ID name "=" "{" {Value ","}* setValues "}" ";"
-  | declStruct: ID name "{" Declaration* declarations"}"
+  | declStruct: ID name "{" Declaration* declarations "}"
   | ifElse: "if" "(" ID variable "==" Value myValue ")" "{" Declaration* declsIf "}" "else" "{" Declaration* declsElse "}" 
     ;
 
 syntax MemberDecl
-  = init: Mod modif ID typeCustom ID name //initialize struct, enum, collection
-  | defBasic: Mod modif ID typeOf ID name //basic typedef
+  = memberDecl: Mod modif ID typeOf ID name //initialize struct, enum, collection
+  | typeDef: TypeDef typedef
   ;
 
 syntax Member
@@ -66,7 +66,7 @@ syntax Member
 
 syntax Mod //variability
   = optional: "opt" 
-  | required:  //if its empty, it is required
+  | required: //if its empty, it is required
   | or: "or" 
   | xor: "xor" 
   ;
