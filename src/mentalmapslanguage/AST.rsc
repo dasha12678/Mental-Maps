@@ -49,9 +49,9 @@ data TypeDef
   ;
 
 data Declaration 
-  = decl(ID name, Value chosenValue, loc src = |unknown:///|)
-  | declList(ID name, list[Value] setValues, loc src = |unknown:///|)
-  | declSet(ID name, set[Value] listValues, loc src = |unknown:///|)
+  = declBasic(ID name, Value chosenValue, loc src = |unknown:///|)
+  | declList(ID name, list[Value] listValues, loc src = |unknown:///|)
+  | declSet(ID name, set[Value] setValues, loc src = |unknown:///|)
   | declStruct(ID name, list[Declaration] declarations, loc src = |unknown:///|)
   | ifElse(ID variable, Value myValue, list[Declaration] declsIf, list[Declaration] declsElse, loc src = |unknown:///|) 
   ;

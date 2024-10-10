@@ -47,7 +47,7 @@ syntax TypeDef
     ;
 
 syntax Declaration 
-  = decl: ID name "=" Value chosenValue ";"
+  = declBasic: ID name "=" Value chosenValue ";"
   | declList: ID name "=" "[" {Value ","}* listValues "]" ";"
   | declSet: ID name "=" "{" {Value ","}* setValues "}" ";"
   | declStruct: ID name "{" Declaration* declarations "}"

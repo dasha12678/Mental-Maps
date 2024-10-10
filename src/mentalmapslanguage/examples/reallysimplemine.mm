@@ -4,19 +4,28 @@ typedefs {
     enum Size {small, medium, large};
     enum Location {PlaceIsNorth, PlaceIsSouth, PlaceIsEast, PlaceIsWest};
     enum Variant {a, b, c};
+    enum Size {shart};
 
     //COLLECTIONS//
     list[Size] VariantSize;
 
     //STRUCTS//
-    root struct level {
+    root struct Level {
         str name;
         Place place xor Enemy enemy;
+        enum Size {shart};
+    };
+
+    struct Room {
+        str name;
+        Size roomSize;
     };
 
     struct Place {
+        Room room;
         str name;
-        Me mine;
+        str name;
+        Size big;
         TypeOf typeOf;
         Structure structure;
     };
@@ -28,18 +37,23 @@ typedefs {
 }
 
 Level {
+    pirate = kill;
+    me = tired;
     name = "mine";
     place {
+        me = mine;
         typeOf = site;
         name = "MainSite";
-        Structure {
+        structure {
+            location = me;
+            piss = me;
             variantSize = [small, large];
-            if (variant == a){
-                location = PlaceIsNoth;
-            }
-            else{
-                location = PlaceIsNorth;
-            }
+             if (variant == a){
+                 location = PlaceIsNoth;
+             }
+             else{
+                 location = PlaceIsNorth;
+             }
         }
     }
 }
