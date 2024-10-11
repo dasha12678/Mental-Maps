@@ -16,7 +16,7 @@ alias Env1 = map[str, list[str]]; //struct and its members eg. Place [typeOf, na
 
 alias Env2 = map[str, str]; //use def  - type and how it's initiated eg. Place place ; str name
 
-alias Env3 = map[str, list[str]]; //enums and their values eg. Size [small, medium, large]
+alias Env3 = map[str, list[Value]]; //enums and their values eg. Size [small, medium, large]
 
 tuple[Env, set[Message]] collect(Level level) {
   Env env = ();
@@ -101,18 +101,25 @@ tuple[Env1, set[Message]] collectStruct (TypeDef structdef) {
 return <env, messages>;
 }
 
+//Collect enums and their values
+tuple[Env3, set[Message]] collect3(Level level) {
+    Env3 env = ();
+    set[Message] messages = {};
+
+    visit(level){
+        case enumDef(_, name, values): {
+           env[name.name] = values;
+        }
+    }
+    return <env, messages>;
+}
+
 set[Message] check(Level level){
   set[Message] messages = {};
 
     for (Declaration decl <- level.declarations){
-    messages += check(decl, "Level", collect1(level)[0]); //visit first level of nodes
-
-    // switch (decl) {
-    //   case declStruct(_, declarations): {
-    //   messages += {*check(nesteddecl, capitalize(decl.name.name), collect1(level)[0]) | Declaration nesteddecl <- declarations};   
-    //   }
-    // }
-     }
+    messages += check(decl, "Level", collect1(level)[0]); 
+    }
 
     for (TypeDef typedef <- level.typedefs) {
       messages += check(typedef, collect(level)[0]);
@@ -155,7 +162,7 @@ set[Message] check(Declaration decl, str parent, Env1 env){
     messages += { error("Expected fields <env[parent]> for <parent>, but found <decl.name.name>", decl.name.src) }; //TO DO: display expected in nicer format
     }
     for (Declaration newdecl <- declarations){
-    messages += check(newdecl, capitalize(name.name), env);
+    messages += check(newdecl, capitalize(name.name), env); //TO DO: generalize from capitalize
   }
   }
   }

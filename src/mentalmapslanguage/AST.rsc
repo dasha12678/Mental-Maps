@@ -53,7 +53,8 @@ data Declaration
   | declList(ID name, list[Value] listValues, loc src = |unknown:///|)
   | declSet(ID name, set[Value] setValues, loc src = |unknown:///|)
   | declStruct(ID name, list[Declaration] declarations, loc src = |unknown:///|)
-  | ifElse(ID variable, Value myValue, list[Declaration] declsIf, list[Declaration] declsElse, loc src = |unknown:///|) 
+  | ifElse(ID variable, str myValue, list[Declaration] declsIf, list[Declaration] declsElse, loc src = |unknown:///|) 
+  | IfNoElse(ID variable, str myValue, list[Declaration] declsIf, loc src = |unknown:///|)
   ;
 
 data Mod

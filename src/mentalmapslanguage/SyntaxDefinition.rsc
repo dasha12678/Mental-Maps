@@ -52,6 +52,7 @@ syntax Declaration
   | declSet: ID name "=" "{" {Value ","}* setValues "}" ";"
   | declStruct: ID name "{" Declaration* declarations "}"
   | ifElse: "if" "(" ID variable "==" Value myValue ")" "{" Declaration* declsIf "}" "else" "{" Declaration* declsElse "}" 
+  | IfNoElse: "if" "(" ID variable "==" Value myValue ")" "{" Declaration* declsIf "}"
     ;
 
 syntax MemberDecl

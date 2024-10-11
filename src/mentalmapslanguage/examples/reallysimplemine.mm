@@ -4,7 +4,7 @@ typedefs {
     enum Size {small, medium, large};
     enum Location {PlaceIsNorth, PlaceIsSouth, PlaceIsEast, PlaceIsWest};
     enum Variant {a, b, c};
-    enum Size {shart};
+    enum Size {small};
 
     //COLLECTIONS//
     list[Size] VariantSize;
@@ -13,7 +13,6 @@ typedefs {
     root struct Level {
         str name;
         Place place xor Enemy enemy;
-        enum Size {shart};
     };
 
     struct Room {
@@ -37,8 +36,7 @@ typedefs {
 }
 
 Level {
-    pirate = kill;
-    me = tired;
+    pirate = Jack;
     name = "mine";
     place {
         me = mine;
@@ -46,10 +44,9 @@ Level {
         name = "MainSite";
         structure {
             location = me;
-            piss = me;
             variantSize = [small, large];
              if (variant == a){
-                 location = PlaceIsNoth;
+                 location = PlaceIsNorth;
              }
              else{
                  location = PlaceIsNorth;
