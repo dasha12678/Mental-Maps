@@ -34,18 +34,18 @@ str genBasic(str functionName){
 
 str genList(str functionName){
     return "
-    str <functionName>(list[Value] chosenValue){ 
+    str <functionName>(value chosenValue){ 
         return \"//place your annotation here\";}" + "\n";
 }
 
 str genSet(str functionName){
     return "
-    str <functionName>(set[Value] chosenValue){ 
+    str <functionName>(value chosenValue){ 
         return \"//place your annotation here\";}" + "\n";
 }
 
 str genStruct(str functionName){
     return "
-    str <functionName>(list[str] declarations){
+    str <functionName>(value declarations){
         return \"//place your annotation here\";}" + "\n";
 }

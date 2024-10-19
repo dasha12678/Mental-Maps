@@ -22,7 +22,6 @@ typedefs {
 
 Level {
     name = "mine";
-    size = medium;
     place {
         name = "MainSite";
         structure {

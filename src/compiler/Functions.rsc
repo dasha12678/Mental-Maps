@@ -1,22 +1,22 @@
 module compiler::Functions
 
-    str name(value chosenValue){
-        return "//place your annotation here";}
+    str Level(value chosenValue){
+        return "<chosenValue>" + "\n";}
 
-    str size(value chosenValue){
-        return "//place your annotation here";}
+    str Levelname(value chosenValue){
+        return "<chosenValue>" + "\n";}
 
-    str name(value chosenValue){
-        return "//place your annotation here";}
+    str Placename(value chosenValue){
+        return "<chosenValue>" + "\n";}
 
-    str location(value chosenValue){
-        return "//place your annotation here";}
+    str Structurelocation(value chosenValue){
+        return "<chosenValue>" + "\n";}
 
-    str size(value chosenValue){
-        return "//place your annotation here";}
+    str Structuresize(value chosenValue){
+        return "<chosenValue>" + "\n";}
 
-    str structure(list[str] declarations){
-        return "//place your annotation here";}
+    str Placestructure(value declarations){
+        return "<declarations>" + "\n";}
 
-    str place(list[str] declarations){
-        return "//place your annotation here";}
+    str Levelplace(value declarations){
+        return "<declarations>" + "\n";}

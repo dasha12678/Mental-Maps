@@ -19,7 +19,7 @@ void generateCode() {
 
     appendToFile(fileLoc, imports);
 
-    appendToFile(fileLoc, "str littlegen(Declaration decl) {\n\n");
+    appendToFile(fileLoc, "str littlegen(Declaration decl, str parent) {\n\n");
 
     visit(level){
     case Declaration decl : {
@@ -32,27 +32,27 @@ void generateCode() {
     appendToFile(fileLoc, "}\n\n");
 
     str translatorFunctions =
-    "str translator(Level level) {\n" +
-    "    list[str] annos = [translator(decl) | Declaration decl \<- level.declarations];\n" +
-    "    return Level(annos);\n" +
+    "str translator(Level level, str parent) {\n" +
+    "    list[str] annos = [translator(decl, \"Level\") | Declaration decl \<- level.declarations];\n" +
+    "    return Level(annos, \"Level\");\n" +
     "}\n\n" +
 
-    "str translator(Declaration decl : declStruct(name, declarations)) {\n" +
-    "    list[str] annos = [translator(decl, name)) | Declaration decl \<- declarations];\n" +
-    "    return littlegen(decl);\n" +
+    "str translator(Declaration decl : declStruct(name, declarations), str parent) {\n" +
+    "    list[str] annos = [translator(decl, name.name) | Declaration decl \<- declarations];\n" +
+    "    return littlegen(decl, name.name);\n" +
     "}\n\n" +
     
-    "str translate(Declaration decl : declBasic(name, _), str parent) {\n" +
-    "    return littlegen(decl);\n" +
-    "}\n\n" +
-
-    "str translate(Declaration decl : declList(name, _), str parent) {\n" +
-    "    return littlegen(decl);\n" +
-    "}\n\n" +
-
-    "str translate(Declaration decl : declSet(name, _), str parent) {\n" +
-    "    return littlegen(decl);\n" +
+    "str translator(Declaration decl : declBasic(name, _), str parent) {\n" +
+    "    return littlegen(decl, parent);\n" +
     "}\n\n";
+
+    // "str translator(Declaration decl : declList(name, _), str parent) {\n" +
+    // "    return littlegen(decl, parent);\n" +
+    // "}\n\n" +
+
+    // "str translator(Declaration decl : declSet(name, _), str parent) {\n" +
+    // "    return littlegen(decl, parent);\n" +
+    // "}\n\n";
 
     appendToFile(fileLoc, translatorFunctions);
 }
