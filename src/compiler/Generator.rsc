@@ -1,74 +1,61 @@
 module compiler::Generator
 
 import IO;
-import String;
-import ParseTree;
-import List;
-import Type;
-
-import compiler::AST;
-import compiler::Parser;
-import compiler::Functions;
-import compiler::Util;
-
 import mentalmapslanguage::AST;
 import mentalmapslanguage::Parser;
 
 void generateCode() {
-    loc myFile = |file:///C:/Users/dasha/Thesis/mental-maps/src/mentalmapslanguage/examples/reallysimplemine.mm|;
+    loc myFile = |file:///C:/Users/dasha/Thesis/mental-maps/src/mentalmapslanguage/examples/newLevel.mm|;
     Level level = parseAndImplodeProject(myFile);
 
     loc fileLoc = |file:///C:/Users/dasha/Thesis/mental-maps/src/compiler/Util.rsc|;
 
-    writeFile(fileLoc, "module compiler::Util;\n\n");
+    writeFile(fileLoc, "module compiler::Util\n\n");
 
     str imports = 
     "import IO;\n" +
-    "import String;\n" +
-    "import List;\n" +
-    "import ParseTree;\n" +
-    "import Type;\n" +
-    "\n" +
-    "import compiler::AST;\n" +
-    "import compiler::Parser;\n" +
     "import compiler::Functions;\n" +
-    "\n" +
-    "import mentalmapslanguage::AST;\n" +
-    "import mentalmapslanguage::Parser;\n\n";
+    "import mentalmapslanguage::AST;\n\n";
 
     appendToFile(fileLoc, imports);
 
     appendToFile(fileLoc, "str littlegen(Declaration decl) {\n\n");
 
-    for (Place place <- level.places) {
-        for (Declaration decl <- place.declarations) {
-            appendToFile(fileLoc, "    if (decl.name == \"" + decl.name + "\") { \n");
-            appendToFile(fileLoc, "        return " + decl.name + "(decl.chosenValue);\n");
-            appendToFile(fileLoc, "    }\n");
-        }
+    visit(level){
+    case Declaration decl : {
+        appendToFile(fileLoc, "    if (decl.name.name == \"" + decl.name.name + "\") { \n");
+        appendToFile(fileLoc, "        return " + decl.name.name + "(decl.chosenValue);\n");
+        appendToFile(fileLoc, "    }\n");
     }
-
+    }
     appendToFile(fileLoc, "    return \"Unhandled declaration type\";\n");
     appendToFile(fileLoc, "}\n\n");
 
     str translatorFunctions =
     "str translator(Level level) {\n" +
-    "    list[str] annoPlaces = [translator(place) | Place place \<- level.places];\n" +
-    "    return UnexploredLevel(annoPlaces);\n" +
+    "    list[str] annos = [translator(decl) | Declaration decl \<- level.declarations];\n" +
+    "    return Level(annos);\n" +
     "}\n\n" +
-    
-    "str translator(Place place) {\n" +
-    "    list[str] annoDecls = [translator(decl) | Declaration decl \<- place.declarations];\n" +
-    "    return Place(annoDecls);\n" +
-    "}\n\n" +
-    
-    "str translator(Declaration decl) {\n" +
+
+    "str translator(Declaration decl : declStruct(name, declarations)) {\n" +
+    "    list[str] annos = [translator(decl, name)) | Declaration decl \<- declarations];\n" +
     "    return littlegen(decl);\n" +
-    "}\n";
+    "}\n\n" +
+    
+    "str translate(Declaration decl : declBasic(name, _), str parent) {\n" +
+    "    return littlegen(decl);\n" +
+    "}\n\n" +
+
+    "str translate(Declaration decl : declList(name, _), str parent) {\n" +
+    "    return littlegen(decl);\n" +
+    "}\n\n" +
+
+    "str translate(Declaration decl : declSet(name, _), str parent) {\n" +
+    "    return littlegen(decl);\n" +
+    "}\n\n";
 
     appendToFile(fileLoc, translatorFunctions);
 }
-
 
 
 

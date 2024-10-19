@@ -57,3 +57,16 @@ public start[Level] LD_parse(loc file) =
 loc level = |file:///C:/Users/dasha/Thesis/mental-maps/src/mentalmapslanguage/examples/reallysimplemine.mm|;
 
 //println(prettyTree(t)); to pretty print the parse tree
+
+
+
+
+
+
+
+
+
+
+
+
+

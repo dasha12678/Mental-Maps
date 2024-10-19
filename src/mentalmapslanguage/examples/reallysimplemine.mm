@@ -12,6 +12,7 @@ typedefs {
     //STRUCTS//
     root struct Level {
         str name;
+        Size size;
         Place place xor Enemy enemy;
     };
 
@@ -24,7 +25,9 @@ typedefs {
         Room room;
         str name;
         str name;
-        Size big;
+        Enum me;
+        Size size;
+        Size size;
         TypeOf typeOf;
         Structure structure;
     };
@@ -38,13 +41,15 @@ typedefs {
 Level {
     pirate = Jack;
     name = "mine";
+    size = size;
     place {
         me = mine;
-        typeOf = site;
+        typeOf = castle;
         name = "MainSite";
         structure {
-            location = me;
-            variantSize = [small, large];
+            piss = me;
+            location = "PlaceIsNorth";
+            variantSize = [small, big];
              if (variant == a){
                  location = PlaceIsNorth;
              }
