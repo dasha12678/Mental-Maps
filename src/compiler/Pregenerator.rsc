@@ -6,7 +6,7 @@ import mentalmapslanguage::AST;
 import mentalmapslanguage::Parser;
 
 void generateCode(Level level) {
-    loc fileLoc = |file:///C:/Users/dasha/Thesis/mental-maps/src/compiler/Util.rsc|;
+    loc fileLoc = |file:///C:/Users/dasha/Thesis/mental-maps/src/compiler/Generator.rsc|;
     writeFile(fileLoc, "module compiler::Generator\n\n");
 
     str imports = 
