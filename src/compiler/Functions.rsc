@@ -1,22 +1,22 @@
 module compiler::Functions
 
     str Level(value chosenValue){
-        return "<chosenValue>" + "\n";}
+        return "<chosenValue>";}
 
-    str Levelname(value chosenValue){
-        return "<chosenValue>" + "\n";}
+    str LevelName(value chosenValue){
+        return "<chosenValue>";}
 
-    str Placename(value chosenValue){
-        return "<chosenValue>" + "\n";}
+    str LevelPlace(value chosenValue){
+        return "<chosenValue>";}
 
-    str Structurelocation(value chosenValue){
-        return "<chosenValue>" + "\n";}
+    str PlaceName(value chosenValue){
+        return "<chosenValue>";}
 
-    str Structuresize(value chosenValue){
-        return "<chosenValue>" + "\n";}
+    str PlaceStructure(value chosenValue){
+        return "<chosenValue>";}
 
-    str Placestructure(value declarations){
-        return "<declarations>" + "\n";}
+    str StructureSize(value chosenValue){
+        return "<chosenValue>";}
 
-    str Levelplace(value declarations){
-        return "<declarations>" + "\n";}
+    str StructureLocation(value chosenValue){
+        return "<chosenValue>";}
