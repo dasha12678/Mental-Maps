@@ -21,7 +21,8 @@ data Value =
   | intValue(int intValue, loc src = |unknown:///|)
   | floatValue(real floatValue, loc src = |unknown:///|)
   | stringValue(str stringValue, loc src = |unknown:///|)
-  | declValue(str nameValue, loc src = |unknown:///|)
+  | enumValue(str nameValue, loc src = |unknown:///|)
+  | structValue(Declaration decl, loc src = |unknown:///|)
   ;
 
 data Level = level(list[TypeDef] typedefs, ID name, list[Declaration] declarations, loc src = |unknown:///|)
@@ -30,13 +31,21 @@ data Level = level(list[TypeDef] typedefs, ID name, list[Declaration] declaratio
 data TypeDef
   = enumDef(Mod modif, ID name, list[Value] values, loc src = |unknown:///|)
   | structDef(bool isRoot, Mod modif, ID name, list[Member] members, loc src = |unknown:///|) 
-  | listDef(Mod modif, Value typeOf, ID name, loc src = |unknown:///|)
-  | setDef(Mod modif, Value typeOf, ID name, loc src = |unknown:///|)
+  | listDef(Mod modif, MyTypeOf myTypeOf, ID name, loc src = |unknown:///|)
+  | setDef(Mod modif, MyTypeOf myTypeOf, ID name, loc src = |unknown:///|)
   | boolDef(Mod modif, ID name, loc src = |unknown:///|)
   | intDef(Mod modif, ID name, loc src = |unknown:///|) 
   | floatDef(Mod modif, ID name, loc src = |unknown:///|) 
   | strDef(Mod modif, ID name, loc src = |unknown:///|) 
   ;
+
+data MyTypeOf
+    = enums(ID custom, loc src = |unknown:///|)
+    | bools(loc src = |unknown:///|)
+    | ints(loc src = |unknown:///|)
+    | floats(loc src = |unknown:///|)
+    | strings(loc src = |unknown:///|)
+    ;
 
   data MemberDecl
   = memberDecl(Mod modif, ID typeOf, ID name, loc src = |unknown:///|)

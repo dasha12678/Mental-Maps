@@ -17,7 +17,7 @@ lexical INTEGER
   = @category="Integer" [\-]? [0-9]+ !>> [0-9];
 
 lexical FLOAT
-  = INTEGER ([.][0-9]+?)?;
+  = INTEGER [.][0-9]+?;
 
 lexical ID
   = @category="Identifier" id: 
@@ -38,13 +38,22 @@ start syntax Level
 syntax TypeDef
     = enumDef: Mod modif "enum" ID name "{" {Value ","}* values "}" //enums
     | structDef: "root"? Mod modif "struct" ID name "{" Member* members "}" //structs
-    | listDef: Mod modif "list" "[" Value typeOf "]" ID name  // lists  
-    | setDef: Mod modif "set" "[" Value typeOf "]" ID name  // sets
+    | listDef: Mod modif "list" "[" MyTypeOf myTypeOf "]" ID name  // lists  
+    | setDef: Mod modif "set" "[" MyTypeOf myTypeOf "]" ID name  // sets
     | boolDef: Mod modif "bool" ID name   // bools
     | intDef: Mod modif "int" ID name  // ints
     | floatDef: Mod modif "float" ID name  // floats
     | strDef: Mod modif "str" ID name  // strings
     ;
+
+syntax MyTypeOf
+    = enums: ID custom
+    | bools: "bool" // bools
+    | ints: "int" // ints
+    | floats: "float" // floats
+    | strings: "str" // strings
+    ;
+    //list of list, list of set not supported
 
 syntax Declaration 
   = declBasic: ID name "=" Value chosenValue ";"
@@ -76,7 +85,8 @@ syntax Value
     | intValue: INTEGER intValue
     | floatValue: FLOAT floatValue
     | stringValue: STRING stringValue
-    | declValue: ID nameValue //enum value, no lookup
+    | enumValue: ID nameValue //enum value, no lookup
+    | structValue: Declaration decl //enum value, no lookup
     ;
 
 

@@ -1,8 +1,8 @@
 module mentalmapslanguage::Variant
 
-enum Size {["small","medium","large"]};
+enum Size {"small","medium","large"};
 
-enum Location {["North","South","East","West"]};
+enum Location {"North","South","East","West"};
 
 root struct Level {
    str name;
@@ -21,13 +21,11 @@ struct Structure {
 
 
 
-  name = "mine";
-  place {
-  name = "MainSite";
-  structure {
-  location = North;
-  size = small;
-;
+name = "mine";
+place {
+    name = "MainSite";
+structure {
+    location = North;
+size = small;
 };
-;
 };

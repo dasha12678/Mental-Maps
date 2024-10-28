@@ -1,9 +1,0 @@
-{
-    "levelName": "mine",
-    "sites": [
-      { 
-        "name": "MainSite", 
-        "structure": {"location" : "North", "size" : "small"};
-      }
-    ]
-  }

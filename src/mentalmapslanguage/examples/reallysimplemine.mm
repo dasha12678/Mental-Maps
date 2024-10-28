@@ -8,9 +8,11 @@ typedefs {
 
     //COLLECTIONS//
     list[Size] VariantSize;
+    list[int] DifferentSize;
 
     //STRUCTS//
     root struct Level {
+        str name;
         str name;
         Size size;
         Place place xor Enemy enemy;
@@ -23,7 +25,7 @@ typedefs {
 
     struct Place {
         Room room;
-        str name;
+        int name;
         str name;
         Enum me;
         Size size;
@@ -34,27 +36,32 @@ typedefs {
 
     struct Structure {
         VariantSize variantSize;
+        DifferentSize differentSize;
         opt Location location;
     };
 }
 
 Level {
     pirate = Jack;
-    name = "mine";
+    name = 10.0;
     size = size;
     place {
         me = mine;
         typeOf = castle;
         name = "MainSite";
         structure {
-            piss = me;
-            location = "PlaceIsNorth";
+            piss = 10;
+            location = PlaceIsNorth;
             variantSize = [small, big];
+            differentSize = [1, me];
              if (variant == a){
-                 location = PlaceIsNorth;
+                 location = North;
              }
              else{
-                 location = PlaceIsNorth;
+                 location = South;
+             }
+             if (variant == a){
+                location = East;
              }
         }
     }
